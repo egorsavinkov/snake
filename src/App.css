@@ -1,0 +1,84 @@
+.nav {
+    margin-top: 50px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.menuAndLogo {
+    display: flex;
+    justify-content: space-between;
+}
+
+.nav .menuAndLogo .logo {
+    height: 40px;
+    width: 50px;
+}
+
+.nav .menuAndLogo .menu {
+    margin-left: 100px;
+}
+
+.home {
+    margin-top: 150px;
+    text-align: center;
+}
+
+.box_two h1 {
+    margin-bottom: 50px;
+}
+
+td {
+    padding-top: 10px;
+    padding-left: 100px;
+    padding-right: 100px;
+}
+
+.home_group {
+    margin-top: 100px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.play_group {
+    display: flex;
+}
+
+.box_one {
+    margin: 100px 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.box_two {
+    margin: 0 20px;
+    padding: 20px;
+    border: black solid 2px;
+    border-radius: 10px;
+}
+
+.btn_nav {
+    margin-left: 30px;
+    height: 40px;
+    width: 100px;
+}
+
+.btn_home {
+    margin-top: 10px;
+    height: 50px;
+    width: 200px;
+}
+
+.btn_finish {
+    margin: 50px 30px;
+    height: 50px;
+    width: 110px;
+}
+
+.btn_big {
+    margin-top: 50px;
+    height: 50px;
+    width: 200px;
+}
