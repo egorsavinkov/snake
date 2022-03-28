@@ -14,11 +14,7 @@ const Finish = () => {
                     <h3>Your result 122 points</h3>
                 </div>
                 <div>
-                    <button className={'btn btn-outline-primary btn_finish'}
-                            onClick={() => dispatch(changePageAction(winnersPage))}>
-                        Winners
-                    </button>
-                    <button className={'btn btn-outline-primary btn_finish'}
+                    <button className={'button button_big button_finish'}
                             onClick={() => dispatch(changePageAction(gamePage))}>
                         Try again
                     </button>

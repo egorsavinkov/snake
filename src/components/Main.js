@@ -7,14 +7,10 @@ import Authorization from "./Authorization";
 import Winners from "./Winners";
 import {useSelector} from "react-redux";
 import Tutorial from "./Tutorial";
+import Nav from "./Nav";
+import Cabinet from "./Cabinet";
 import {
-    authorizationPage,
-    finishPage,
-    gamePage,
-    homePage,
-    playPage,
-    tutorialPage,
-    winnersPage
+    authorizationPage, cabinetPage, finishPage, gamePage, homePage, playPage, tutorialPage, winnersPage
 } from "../utils/Constants";
 
 const Main = () => {
@@ -22,21 +18,23 @@ const Main = () => {
 
     switch (page) {
         case homePage:
-            return <Home/>
+            return (<div><Nav/><Home/></div>)
         case playPage:
-            return <Play/>
+            return (<div><Nav/><Play/></div>)
         case finishPage:
-            return <Finish/>
+            return (<div><Nav/><Finish/></div>)
+        case cabinetPage:
+            return (<div><Nav/><Cabinet/></div>)
         case gamePage:
-            return <Game/>
+            return (<div><Nav/><Game/></div>)
         case authorizationPage:
-            return <Authorization/>
+            return (<div><Nav/><Authorization/></div>)
         case tutorialPage:
-            return <Tutorial/>
+            return (<div><Nav/><Tutorial/></div>)
         case winnersPage:
-            return <Winners/>
+            return (<div><Nav/><Winners/></div>)
         default:
-            return <Home/>
+            return (<div><Nav/><Home/></div>)
     }
 };
 

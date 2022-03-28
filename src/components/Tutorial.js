@@ -34,7 +34,7 @@ const Tutorial = () => {
                         Good luck and happy travels!
                     </p>
                 </h5>
-                <button className={'btn btn-outline-primary btn_big'}
+                <button className={'button button_big button_tutorial_autorization_play'}
                         onClick={() => dispatch(changePageAction(playPage))}>
                     Play
                 </button>

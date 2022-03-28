@@ -7,6 +7,7 @@
 .menuAndLogo {
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 .nav .menuAndLogo .logo {
@@ -41,6 +42,7 @@ td {
 }
 
 .play_group {
+    margin-top: 50px;
     display: flex;
 }
 
@@ -54,31 +56,132 @@ td {
 
 .box_two {
     margin: 0 20px;
-    padding: 20px;
-    border: black solid 2px;
-    border-radius: 10px;
+    padding: 40px;
+    border: #008CBA solid 2px;
+    border-radius: 15px 50px;
 }
 
-.btn_nav {
-    margin-left: 30px;
-    height: 40px;
-    width: 100px;
+.button_nav {
+    margin-left: 20px;
 }
 
-.btn_home {
-    margin-top: 10px;
-    height: 50px;
-    width: 200px;
-}
-
-.btn_finish {
+.button_finish {
     margin: 50px 30px;
-    height: 50px;
-    width: 110px;
 }
 
-.btn_big {
+.button_tutorial_autorization_play {
     margin-top: 50px;
-    height: 50px;
-    width: 200px;
+}
+
+.button_small {
+    background-color: white;
+    color: black;
+    border: 2px solid #008CBA;
+    border-radius: 8px;
+    padding: 10px 24px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+}
+
+.button_big {
+    background-color: white;
+    color: black;
+    border: 2px solid #008CBA;
+    border-radius: 8px;
+    padding: 14px 40px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 24px;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+}
+
+.button:hover {
+    background-color: #008CBA;
+    color: white;
+}
+
+.input_form {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 1px solid #008CBA;
+    border-radius: 4px;
+}
+
+.showplace {
+    border-radius: 15px;;
+    margin-bottom: 5px;
+    height: 80px;
+    width: 80px;
+}
+
+.game {
+    padding: 10px;
+    border: #008CBA solid 2px;
+    border-radius: 15px 50px;
+    margin-top: 20px;
+    width: 100%;
+}
+
+.level {
+    margin: 5px;
+    width: 10%;
+    text-align: center;
+    border: #008CBA solid 2px;
+    border-radius: 15px;
+    float: left;
+}
+
+#formChangeSnakeColor {
+    margin-top: 30px;
+}
+
+#changeSnakeColor {
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 1px solid #008CBA;
+}
+
+#pointsCabinet {
+    margin-top: 30px;
+}
+
+.button_cabinet {
+    margin-left: 20px;
+}
+
+#card {
+    margin-left: 20px;
+    margin-right: 20px;
+    padding: 10px;
+    text-align: center;
+    border: #008CBA solid 2px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.cardImage {
+    border-radius: 15px;;
+    width: 50%;
+}
+
+.cardText {
+    text-align: left;
+    width: 50%;
+}
+
+.bonusCard {
+    display: flex;
+    margin-top: 30px;
+    justify-content: space-between;
+    align-items: center;
 }

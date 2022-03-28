@@ -13,10 +13,10 @@ const Home = () => {
                 <h2>Click play to start the game</h2>
             </div>
             <div className={'home_group'}>
-                <button className={'btn btn-outline-primary btn_home'}
-                        onClick={() => dispatch(changePageAction(playPage))}>
-                    Play
-                </button>
+                    <button type={'submit'} className={'button button_big'}
+                            onClick={() => dispatch(changePageAction(playPage))}>
+                        Play
+                    </button>
             </div>
         </div>
     );

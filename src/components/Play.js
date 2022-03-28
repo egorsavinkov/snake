@@ -11,14 +11,14 @@ const Play = () => {
             <div className={'play_group'}>
                 <div className={'box_two'}>
                     <h3>Register, play and follow your results in the list of winners</h3>
-                    <button className={'btn btn-outline-primary btn_big'}
+                    <button className={'button button_big button_tutorial_autorization_play'}
                             onClick={() => dispatch(changePageAction(authorizationPage))}>
                         Registration
                     </button>
                 </div>
                 <div className={'box_two'}>
                     <h3>Play without registration and the ability to track your points</h3>
-                    <button className={'btn btn-outline-primary btn_big'}
+                    <button className={'button button_big button_tutorial_autorization_play'}
                             onClick={() => dispatch(changePageAction(gamePage))}>
                         Play
                     </button>

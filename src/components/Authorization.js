@@ -20,19 +20,19 @@ const Authorization = () => {
         <div className={'box_one'}>
             <div className={'box_two'}>
                 <form>
-                    <div className={'form-floating mb-3'}>
-                        <input type={'text'} className={'form-control'}
-                               id={'floatingInput'} placeholder={'@nickname'}
+                    <div>
+                        <input type={'text'} className={'input_form'} id={'nickname'} placeholder={'Nickname'}
                                onChange={event => setNickName(event.target.value)}/>
-                        <label htmlFor={'floatingInput'}>Nickname</label>
                     </div>
-                    <div className={'form-floating'}>
-                        <input type={'password'} className={'form-control'}
-                               id={'floatingPassword'} placeholder={'Password'}
+                    <div>
+                        <input type={'email'} className={'input_form'} id={'email'} placeholder={'Email'}
+                               onChange={event => setNickName(event.target.value)}/>
+                    </div>
+                    <div>
+                        <input type={'password'} className={'input_form'} id={'password'} placeholder={'Password'}
                                onChange={event => setPassword(event.target.value)}/>
-                        <label htmlFor={'floatingPassword'}>Password</label>
                     </div>
-                    <button type={'submit'} className={'btn btn-outline-primary btn_big'}
+                    <button type={'submit'} className={'button button_big button_tutorial_autorization_play'}
                             onClick={event => {
                                 event.preventDefault()
                                 setLoginAndPassword(nickname, password)
