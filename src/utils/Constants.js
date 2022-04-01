@@ -6,5 +6,8 @@ export const authorizationPage = 'Authorization'
 export const tutorialPage = 'Tutorial'
 export const winnersPage = 'Winners'
 export const cabinetPage = 'Cabinet'
-
+export const RIGHT = 'RIGHT'
+export const LEFT = 'LEFT'
+export const UP = 'UP'
+export const DOWN = 'DOWN'
 export const pageNavArr = ['Home', 'Tutorial', 'Winners']

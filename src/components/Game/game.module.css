@@ -1,0 +1,41 @@
+.game_area {
+    position: relative;
+    padding: 10px;
+    border: #008CBA solid 2px;
+    border-radius: 15px 50px;
+    /*margin-top: 20px;*/
+    margin: 20px auto;
+    /*width: 100%;*/
+    width: 600px;
+    height: 600px;
+}
+
+.level {
+    margin: 5px;
+    width: 10%;
+    text-align: center;
+    border: #008CBA solid 2px;
+    border-radius: 15px;
+    float: left;
+}
+
+.snake_dot {
+    position: absolute;
+    width: 2%;
+    height: 2%;
+    background-color: #b466aa;
+    border: 1px solid white;
+    z-index: 2;
+}
+
+.snake_point {
+    position: absolute;
+    width: 2%;
+    height: 2%;
+    background-color: #009a00;
+    border: 1px solid white;
+    z-index: 1;
+}
+
+
+

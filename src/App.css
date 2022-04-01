@@ -1,5 +1,5 @@
 .nav {
-    margin-top: 50px;
+    margin-top: 20px;
     display: flex;
     justify-content: space-between;
 }
@@ -120,23 +120,6 @@ td {
     margin-bottom: 5px;
     height: 80px;
     width: 80px;
-}
-
-.game {
-    padding: 10px;
-    border: #008CBA solid 2px;
-    border-radius: 15px 50px;
-    margin-top: 20px;
-    width: 100%;
-}
-
-.level {
-    margin: 5px;
-    width: 10%;
-    text-align: center;
-    border: #008CBA solid 2px;
-    border-radius: 15px;
-    float: left;
 }
 
 #formChangeSnakeColor {

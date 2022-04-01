@@ -2,7 +2,7 @@ import React from 'react';
 import Home from "./Home";
 import Play from "./Play";
 import Finish from "./Finish";
-import Game from "./Game";
+import Game from "./Game/Game";
 import Authorization from "./Authorization";
 import Winners from "./Winners";
 import {useSelector} from "react-redux";
