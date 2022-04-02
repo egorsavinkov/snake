@@ -6,7 +6,7 @@ import {authorizationPage, pageNavArr} from "../utils/Constants";
 
 const Nav = () => {
     const dispatch = useDispatch()
-    const [user, setUser] = useState('')
+    // const [user, setUser] = useState('')
     const page = useSelector(state => state.page)
     const temp = pageNavArr.filter(item => item !== page)
 
@@ -36,35 +36,5 @@ const Nav = () => {
         </div>
     );
 }
-
-
-// else
-// {
-//     return (
-//         <div className={'nav'}>
-//             <div className={'menuAndLogo'}>
-//                 <img className={'logo'} src={logo} alt={'logo'}/>
-//                 <h3>naky Tourister</h3>
-//                 <div className={'menu'}>
-//                     <button className={'btn btn-outline-primary btn_nav'}
-//                             onClick={() => dispatch(changePageAction(homePage))}>
-//                         Home
-//                     </button>
-//                     <button className={'btn btn-outline-primary btn_nav'}
-//                             onClick={() => dispatch(changePageAction(tutorialPage))}>
-//                         Tutorial
-//                     </button>
-//                     <button className={'btn btn-outline-primary btn_nav'}
-//                             onClick={() => dispatch(changePageAction(winnersPage))}>
-//                         Winners
-//                     </button>
-//                 </div>
-//             </div>
-//             <button className={'btn btn-outline-primary btn_nav'}>
-//                 {user.nickname}
-//             </button>
-//         </div>
-//     );
-// };
 
 export default Nav;

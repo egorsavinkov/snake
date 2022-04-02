@@ -8,7 +8,6 @@ const Snake = (props) => {
                 const style = {
                     left: `${dot[0]}%`,
                     top: `${dot[1]}%`
-
                 }
                 return (
                     <div className={`${styleCSS.snake_dot}`} key={index} style={style}>

@@ -1,16 +1,18 @@
 import React from 'react';
+import {useSelector} from "react-redux";
 import Home from "./Home";
 import Play from "./Play";
-import Finish from "./Finish";
-import Game from "./Game/Game";
+import Game from "./game/Game";
 import Authorization from "./Authorization";
 import Winners from "./Winners";
-import {useSelector} from "react-redux";
 import Tutorial from "./Tutorial";
 import Nav from "./Nav";
 import Cabinet from "./Cabinet";
+import GameOver from "./game/GameOver";
+import Level from "./level/Level";
 import {
-    authorizationPage, cabinetPage, finishPage, gamePage, homePage, playPage, tutorialPage, winnersPage
+    authorizationPage, cabinetPage, gameOverPage, gamePage,
+    homePage, nextLevelPage, playPage, tutorialPage, winnersPage
 } from "../utils/Constants";
 
 const Main = () => {
@@ -18,23 +20,25 @@ const Main = () => {
 
     switch (page) {
         case homePage:
-            return (<div><Nav/><Home/></div>)
+            return <div><Nav/><Home/></div>
         case playPage:
-            return (<div><Nav/><Play/></div>)
-        case finishPage:
-            return (<div><Nav/><Finish/></div>)
+            return <div><Nav/><Play/></div>
+        case gameOverPage:
+            return <div><Nav/><GameOver/></div>
         case cabinetPage:
-            return (<div><Nav/><Cabinet/></div>)
+            return <div><Nav/><Cabinet/></div>
         case gamePage:
-            return (<div><Nav/><Game/></div>)
+            return <div><Nav/><Game/></div>
+        case nextLevelPage:
+            return <div><Nav/><Level/></div>
         case authorizationPage:
-            return (<div><Nav/><Authorization/></div>)
+            return <div><Nav/><Authorization/></div>
         case tutorialPage:
-            return (<div><Nav/><Tutorial/></div>)
+            return <div><Nav/><Tutorial/></div>
         case winnersPage:
-            return (<div><Nav/><Winners/></div>)
+            return <div><Nav/><Winners/></div>
         default:
-            return (<div><Nav/><Home/></div>)
+            return <div><Nav/><Home/></div>
     }
 };
 

@@ -2,9 +2,9 @@
     position: relative;
     padding: 10px;
     border: #008CBA solid 2px;
-    border-radius: 15px 50px;
+    border-radius: 5px;
     /*margin-top: 20px;*/
-    margin: 20px auto;
+    margin: 30px auto;
     /*width: 100%;*/
     width: 600px;
     height: 600px;
@@ -14,9 +14,12 @@
     margin: 5px;
     width: 10%;
     text-align: center;
-    border: #008CBA solid 2px;
-    border-radius: 15px;
     float: left;
+}
+
+.button_next_level {
+    margin-top: 10px;
+    padding: 5px;
 }
 
 .snake_dot {
@@ -36,6 +39,3 @@
     border: 1px solid white;
     z-index: 1;
 }
-
-
-
