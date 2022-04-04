@@ -4,19 +4,20 @@ import {useInterval} from "../../utils/useInterval";
 import styleCSS from './game.module.css'
 import Snake from "./Snake";
 import Point from "./Point";
+import Barrier from "./Barrier";
 import {
-    changeGamePointsAction,
-    changeLevelAction,
-    changeLevelPointsAction,
-    changePageAction
+    changeGamePointsAction, changeLevelAction, changeLevelPointsAction, changePageAction
 } from "../../actions/gameActions";
 import showplace_1 from '../../images/showplace_1.jpg';
-import {DOWN, gameOverPage, LEFT, nextLevelPage, RIGHT, UP} from "../../utils/Constants";
+import {
+    DOWN, gameOverPage, LEFT, levelArr, nextLevelPage, RIGHT, snakeArr, UP
+} from "../../utils/Constants";
 
 const Game = () => {
     const gamePoints = useSelector(state => state.gamePoints);
     const levelPoints = useSelector(state => state.levelPoints);
     const levelState = useSelector(state => state.level);
+    const levelBarrier = useSelector(state => state.barrier[levelState])
     const dispatch = useDispatch()
 
     const getRandomCoordinates = () => {
@@ -30,7 +31,7 @@ const Game = () => {
     const [point, setPoint] = useState(getRandomCoordinates());
     const [speed, setSpeed] = useState(200);
     const [direction, setDirection] = useState(RIGHT);
-    const [snakeDots, setSnakeDots] = useState([[0, 0], [2, 0], [4, 0]]);
+    const [snakeDots, setSnakeDots] = useState(snakeArr);
 
     const onKeyDown = (e) => {
         e = e || window.event;
@@ -95,6 +96,16 @@ const Game = () => {
         })
     }
 
+    const checkIfOutBarrier = () => {
+        let snake = [...snakeDots];
+        let head = snake[snake.length - 1];
+        levelBarrier.forEach(dotBarrier => {
+            if (head[0] === dotBarrier[0] && head[1] === dotBarrier[1]) {
+                dispatch(changePageAction(gameOverPage))
+            }
+        })
+    }
+
     const checkIfEat = () => {
         let head = snakeDots[snakeDots.length - 1];
         let p = point;
@@ -119,18 +130,29 @@ const Game = () => {
         }
     }
 
-    const changeLevel = (level) => {
+    const changeLevelSpeed = (level) => {
         switch (level) {
-            case 0:
+            case levelArr[0]:
                 setSpeed(200);
                 break;
-            case 1:
+            case levelArr[1]:
                 setSpeed(150);
                 break;
+            case levelArr[2]:
+                setSpeed(100);
+                break;
+            case levelArr[3]:
+                setSpeed(50);
+                break;
             default:
-                setSpeed(200);
+                setSpeed(150);
                 break;
         }
+    }
+
+    const searchNextLevel = (currentLevel) => {
+        let lvl = levelArr.indexOf(currentLevel)
+        return levelArr[lvl + 1]
     }
 
     useEffect(() => {
@@ -138,7 +160,8 @@ const Game = () => {
         checkIfOutBorders();
         checkIfOutCollapsed();
         checkIfEat();
-        changeLevel(levelState);
+        checkIfOutBarrier();
+        changeLevelSpeed(levelState);
     })
 
     useInterval(() => moveSnake(), speed);
@@ -147,15 +170,15 @@ const Game = () => {
         <div>
             <div className={`${styleCSS.level}`}>
                 <div>
-                    <img className={'showplace'} src={showplace_1} alt={'showplace'}/>
+                    <img className={'showplace'} src={showplace_1} alt={'image_1'}/>
                     {levelPoints < 3 && <h6>Up to the next level {3 - levelPoints} points</h6>}
                     {levelPoints >= 3 && <h6>You have {levelPoints} points per level</h6>}
                 </div>
                 {levelPoints >= 3 &&
                 <button className={`button button_small ${styleCSS.button_next_level}`}
                         onClick={() => {
-                            dispatch(changePageAction(nextLevelPage))
-                            dispatch(changeLevelAction(levelState + 1))
+                            dispatch(changePageAction(nextLevelPage));
+                            dispatch(changeLevelAction(searchNextLevel(levelState)));
                         }}>
                     Next level
                 </button>
@@ -164,6 +187,7 @@ const Game = () => {
             <div className={`${styleCSS.game_area}`}>
                 <Snake snakeDots={snakeDots}/>
                 <Point dot={point}/>
+                <Barrier/>
             </div>
         </div>
     );
