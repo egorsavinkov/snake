@@ -2,6 +2,10 @@ import React from 'react';
 import showplace_1 from "../images/showplace_1.jpg";
 
 const Cabinet = () => {
+    // function logOut() {
+    //     fb.auth().signOut();
+    // }
+
     return (
         <div className={'box_one'}>
             <div className={'box_two'}>

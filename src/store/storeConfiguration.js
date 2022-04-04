@@ -6,6 +6,12 @@ import {
 } from "../utils/Constants";
 
 const initialState = {
+    user: {
+        nickname: '',
+        email: '',
+        password: '',
+        uid: ''
+    },
     page: homePage,
     levelPoints: 0,
     gamePoints: 0,

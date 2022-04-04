@@ -1,7 +1,7 @@
 import React from 'react';
 import {useDispatch} from "react-redux";
 import {changePageAction} from "../actions/gameActions";
-import {authorizationPage, gamePage} from "../utils/Constants";
+import {gamePage, registrationPage} from "../utils/Constants";
 
 const Play = () => {
     const dispatch = useDispatch()
@@ -12,7 +12,7 @@ const Play = () => {
                 <div className={'box_two'}>
                     <h3>Register, play and follow your results in the list of winners</h3>
                     <button className={'button button_big button_tutorial_autorization_play'}
-                            onClick={() => dispatch(changePageAction(authorizationPage))}>
+                            onClick={() => dispatch(changePageAction(registrationPage))}>
                         Registration
                     </button>
                 </div>

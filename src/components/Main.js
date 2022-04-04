@@ -4,6 +4,7 @@ import Home from "./Home";
 import Play from "./Play";
 import Game from "./game/Game";
 import Authorization from "./Authorization";
+import Registration from "./Registration";
 import Winners from "./Winners";
 import Tutorial from "./Tutorial";
 import Nav from "./Nav";
@@ -12,7 +13,7 @@ import GameOver from "./game/GameOver";
 import Level from "./level/Level";
 import {
     authorizationPage, cabinetPage, gameOverPage, gamePage,
-    homePage, nextLevelPage, playPage, tutorialPage, winnersPage
+    homePage, nextLevelPage, playPage, registrationPage, tutorialPage, winnersPage
 } from "../utils/Constants";
 
 const Main = () => {
@@ -23,6 +24,8 @@ const Main = () => {
             return <div><Nav/><Home/></div>
         case playPage:
             return <div><Nav/><Play/></div>
+        case registrationPage:
+            return <div><Nav/><Registration/></div>
         case gameOverPage:
             return <div><Nav/><GameOver/></div>
         case cabinetPage:

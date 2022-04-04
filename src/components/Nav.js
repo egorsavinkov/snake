@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import logo from '../images/logo.svg';
 import {useDispatch, useSelector} from "react-redux";
 import {changePageAction} from "../actions/gameActions";
@@ -9,13 +9,6 @@ const Nav = () => {
     // const [user, setUser] = useState('')
     const page = useSelector(state => state.page)
     const temp = pageNavArr.filter(item => item !== page)
-
-    // useEffect(() => {
-    //     let person = JSON.parse(localStorage.getItem('user'))
-    //     if (person) {
-    //         setUser(person)
-    //     }
-    // }, [])
 
     return (
         <div className={'nav'}>
