@@ -1,45 +1,80 @@
 import React, {useEffect, useState} from 'react';
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {fb} from "../config/FareBaseConfig";
 import 'firebase/compat/auth';
-import {changePageAction, userAuthorizationAction} from "../actions/gameActions";
+import {
+    changePageAction, userAuthorizationActionEmail, userAuthorizationActionGamePoints,
+    userAuthorizationActionLevel, userAuthorizationActionNickname, userAuthorizationActionUid
+} from "../actions/gameActions";
 import {homePage} from "../utils/Constants";
 
 
 const Authorization = () => {
     const dispatch = useDispatch();
-    const userState = useSelector(state => state.user);
     const [state, setState] = useState({
         nickname: '',
         email: '',
-        password: ''
+        password: '',
+        uid: ''
     });
 
-    async function authorization(email, password) {
+    async function getUser(uidPlayer) {
         try {
-            const response = await fb.auth().signInWithEmailAndPassword(email, password);
-            console.log(response)
-            const info = {
-                uid: response.user.uid,
-                email: response.user.email,
-                nickName: response.user.displayName
+            const ref = await fb.firestore().collection('players').doc(uidPlayer);
+            const doc = await ref.get();
+            return {
+                email: doc.data().email,
+                password: doc.data().password,
+                nickname: doc.data().nickname,
+                uid: doc.data().uid,
+                level: doc.data().level,
+                gamePoints: doc.data().gamePoints
             }
-            dispatch(userAuthorizationAction(info))
-            dispatch(changePageAction(homePage));
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const changeStore = (email, nickname, uid, level, gamePoints) => {
+        dispatch(userAuthorizationActionEmail(email));
+        dispatch(userAuthorizationActionNickname(nickname));
+        dispatch(userAuthorizationActionUid(uid));
+        dispatch(userAuthorizationActionGamePoints(gamePoints));
+        dispatch(userAuthorizationActionLevel(level))
+        dispatch(changePageAction(homePage));
+    }
+
+    async function authorization(em, pass) {
+        try {
+            const response = await fb.auth().signInWithEmailAndPassword(em, pass);
+            console.log(response)
+            const uidPlayer = response.user.uid;
+            let userID = JSON.parse(localStorage.getItem(uidPlayer));
+            if (!userID) {
+                const user = await getUser(uidPlayer);
+                localStorage.setItem(uidPlayer, JSON.stringify(user));
+                changeStore(user.email, user.nickname, user.uid, user.level, user.gamePoints);
+            } else {
+                changeStore(userID.email, userID.nickname, userID.uid, userID.level, userID.gamePoints);
+            }
         } catch (error) {
             console.log(error);
         }
     }
 
     useEffect(() => {
-        fb.auth().onAuthStateChanged(function (user) {
-            if (user) {
-                const info = {
-                    uid: user.uid,
-                    email: user.email,
-                    nickName: user.displayName
-                }
-                dispatch(userAuthorizationAction(info))
+        fb.auth().onAuthStateChanged(function (u) {
+            if (u) {
+                let gamer = JSON.parse(localStorage.getItem(u.uid))
+                setState(state => ({
+                    ...state,
+                    password: gamer.password,
+                    email: gamer.email,
+                    gamePoints: gamer.gamePoints,
+                    level: gamer.level,
+                    nickname: gamer.nickname,
+                    uid: gamer.uid
+                }))
             }
         });
     }, [])
@@ -47,13 +82,14 @@ const Authorization = () => {
     return (
         <div className={'box_one'}>
             <div className={'box_two'}>
-                {userState.email &&
+                {state.email &&
                 <div>
                     <div>
                         <input type={'email'} className={'input_form'} id={'email'}
-                               placeholder={'Email'} value={userState.email}
+                               placeholder={'Email'} value={state.email}
                                onChange={event => setState(state =>
-                                   ({...state, email: event.target.value}))}/>
+                                   ({...state, email: event.target.value}))}
+                        />
                     </div>
                     <div>
                         <input type={'password'} className={'input_form'} id={'password'}
@@ -67,7 +103,7 @@ const Authorization = () => {
                         Sign in
                     </button>
                 </div>}
-                {!userState.email &&
+                {!state.email &&
                 <div>
                     <div>
                         <input type={'email'} className={'input_form'} id={'email'}

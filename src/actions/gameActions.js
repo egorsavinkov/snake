@@ -1,8 +1,8 @@
 import {
-    CHANGE_GAME_POINTS, CHANGE_LEVEL, CHANGE_LEVEL_POINTS,
-    CHANGE_PAGE, USER_AUTHORIZATION, USER_REGISTRATION
+    CHANGE_GAME_POINTS, CHANGE_LEVEL, CHANGE_LEVEL_POINTS, CHANGE_PAGE, USER_AUTHORIZATION_EMAIL,
+    USER_AUTHORIZATION_GAME_POINTS, USER_AUTHORIZATION_LEVEL, USER_AUTHORIZATION_NICKNAME, USER_AUTHORIZATION_UID,
+    USER_REGISTRATION_EMAIL, USER_REGISTRATION_NICKNAME, USER_REGISTRATION_UID
 } from "../utils/Constants";
-import Authorization from "../components/Authorization";
 
 export const changePageAction = page => ({
     type: CHANGE_PAGE,
@@ -24,12 +24,42 @@ export const changeLevelAction = level => ({
     payload: level
 });
 
-export const userRegistrationAction = user => ({
-    type: USER_REGISTRATION,
-    payload: user
+export const userRegistrationActionNickname = nickname => ({
+    type: USER_REGISTRATION_NICKNAME,
+    payload: nickname
 });
 
-export const userAuthorizationAction = user => ({
-    type: USER_AUTHORIZATION,
-    payload: user
+export const userRegistrationActionEmail = email => ({
+    type: USER_REGISTRATION_EMAIL,
+    payload: email
+});
+
+export const userRegistrationActionUid = uid => ({
+    type: USER_REGISTRATION_UID,
+    payload: uid
+});
+
+export const userAuthorizationActionNickname = nickname => ({
+    type: USER_AUTHORIZATION_NICKNAME,
+    payload: nickname
+});
+
+export const userAuthorizationActionEmail = email => ({
+    type: USER_AUTHORIZATION_EMAIL,
+    payload: email
+});
+
+export const userAuthorizationActionUid = uid => ({
+    type: USER_AUTHORIZATION_UID,
+    payload: uid
+});
+
+export const userAuthorizationActionLevel = level => ({
+    type: USER_AUTHORIZATION_LEVEL,
+    payload: level
+});
+
+export const userAuthorizationActionGamePoints = gamePoints => ({
+    type: USER_AUTHORIZATION_GAME_POINTS,
+    payload: gamePoints
 });

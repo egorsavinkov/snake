@@ -5,10 +5,10 @@ import {changePageAction} from "../actions/gameActions";
 import {authorizationPage, pageNavArr} from "../utils/Constants";
 
 const Nav = () => {
-    const dispatch = useDispatch()
-    // const [user, setUser] = useState('')
-    const page = useSelector(state => state.page)
-    const temp = pageNavArr.filter(item => item !== page)
+    const dispatch = useDispatch();
+    const page = useSelector(state => state.page);
+    const nickname = useSelector(state => state.nickname)
+    const temp = pageNavArr.filter(item => item !== page);
 
     return (
         <div className={'nav'}>
@@ -22,10 +22,14 @@ const Nav = () => {
                     ))}
                 </div>
             </div>
-            <button className={'button button_small button_nav'}
-                    onClick={() => dispatch(changePageAction(authorizationPage))}>
+            {!nickname && <button className={'button button_small button_nav'}
+                                  onClick={() => dispatch(changePageAction(authorizationPage))}>
                 Sign in
-            </button>
+            </button>}
+            {nickname && <button className={'button button_small button_nav'}
+                                 onClick={() => dispatch(changePageAction(authorizationPage))}>
+                {nickname}
+            </button>}
         </div>
     );
 }

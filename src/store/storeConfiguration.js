@@ -1,21 +1,16 @@
 import {createStore} from "redux";
 import {gameReducer} from "../reducers/gameReducer";
-import {
-    homePage, levelArrFree, levelArrOne,
-    levelArrTwo, levelArrZero
-} from "../utils/Constants";
+import {homePage, levelArrFree, levelArrOne, levelArrTwo, levelArrZero} from "../utils/Constants";
 
 const initialState = {
-    user: {
-        nickname: '',
-        email: '',
-        password: '',
-        uid: ''
-    },
-    page: homePage,
+    nickname: '',
+    email: '',
+    password: '',
+    uid: '',
     levelPoints: 0,
     gamePoints: 0,
     level: 'zero',
+    page: homePage,
     barrier: {
         zero: levelArrZero,
         one: levelArrOne,

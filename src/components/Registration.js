@@ -2,8 +2,11 @@ import React, {useState} from 'react';
 import {useDispatch} from "react-redux";
 import {fb} from "../config/FareBaseConfig";
 import 'firebase/compat/auth';
+import 'firebase/compat/firestore';
 import {getAuth, updateProfile} from "firebase/auth";
-import {changePageAction, userRegistrationAction} from "../actions/gameActions";
+import {
+    changePageAction, userRegistrationActionEmail, userRegistrationActionNickname, userRegistrationActionUid
+} from "../actions/gameActions";
 import {homePage} from "../utils/Constants";
 
 const Registration = () => {
@@ -14,16 +17,39 @@ const Registration = () => {
         password: ''
     });
 
-    async function registration(email, password) {
+    async function addUser(uid, email, password, nickname) {
         try {
-            const response = await fb.auth().createUserWithEmailAndPassword(email, password);
+            const ref = await fb.firestore().collection('players').doc(uid);
+            await ref.set({
+                uid, email, password,
+                nickname: state.nickname,
+                level: 'zero',
+                gamePoints: 0
+            })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    async function registration(em, pass) {
+        try {
+            const response = await fb.auth().createUserWithEmailAndPassword(em, pass);
             console.log(response)
-            const info = {
-                uid: response.user.uid,
-                email: response.user.email,
-                nickName: response.user.displayName
+            const uid = response.user.uid;
+            const email = response.user.email;
+            const nickname = response.user.displayName;
+            const userID = {
+                email, uid,
+                nickname: state.nickname,
+                password: state.password,
+                level: 'zero',
+                gamePoints: 0
             }
-            dispatch(userRegistrationAction(info));
+            localStorage.setItem(uid, JSON.stringify(userID));
+            await addUser(uid, email, state.password, nickname);
+            dispatch(userRegistrationActionNickname(nickname));
+            dispatch(userRegistrationActionEmail(email));
+            dispatch(userRegistrationActionUid(uid));
             dispatch(changePageAction(homePage));
         } catch (error) {
             console.log(error);
