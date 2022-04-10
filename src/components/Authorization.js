@@ -2,9 +2,10 @@ import React, {useEffect, useState} from 'react';
 import {useDispatch} from "react-redux";
 import {fb} from "../config/FareBaseConfig";
 import 'firebase/compat/auth';
+import 'firebase/compat/firestore';
 import {
-    changePageAction, userAuthorizationActionEmail, userAuthorizationActionGamePoints,
-    userAuthorizationActionLevel, userAuthorizationActionNickname, userAuthorizationActionUid
+    changePageAction, userAuthorizationActionEmail, userAuthorizationActionGamePoints, userAuthorizationActionLevel,
+    userAuthorizationActionNickname, userAuthorizationActionPassword, userAuthorizationActionUid
 } from "../actions/gameActions";
 import {homePage} from "../utils/Constants";
 
@@ -35,8 +36,9 @@ const Authorization = () => {
         }
     }
 
-    const changeStore = (email, nickname, uid, level, gamePoints) => {
+    const changeStore = (email, password, nickname, uid, level, gamePoints) => {
         dispatch(userAuthorizationActionEmail(email));
+        dispatch(userAuthorizationActionPassword(password))
         dispatch(userAuthorizationActionNickname(nickname));
         dispatch(userAuthorizationActionUid(uid));
         dispatch(userAuthorizationActionGamePoints(gamePoints));
@@ -53,9 +55,9 @@ const Authorization = () => {
             if (!userID) {
                 const user = await getUser(uidPlayer);
                 localStorage.setItem(uidPlayer, JSON.stringify(user));
-                changeStore(user.email, user.nickname, user.uid, user.level, user.gamePoints);
+                changeStore(user.email, user.password, user.nickname, user.uid, user.level, user.gamePoints);
             } else {
-                changeStore(userID.email, userID.nickname, userID.uid, userID.level, userID.gamePoints);
+                changeStore(userID.email, userID.password, userID.nickname, userID.uid, userID.level, userID.gamePoints);
             }
         } catch (error) {
             console.log(error);
@@ -63,21 +65,18 @@ const Authorization = () => {
     }
 
     useEffect(() => {
-        fb.auth().onAuthStateChanged(function (u) {
-            if (u) {
-                let gamer = JSON.parse(localStorage.getItem(u.uid))
-                setState(state => ({
-                    ...state,
-                    password: gamer.password,
-                    email: gamer.email,
-                    gamePoints: gamer.gamePoints,
-                    level: gamer.level,
-                    nickname: gamer.nickname,
-                    uid: gamer.uid
-                }))
+        fb.auth().onAuthStateChanged(function (player) {
+            if (player && !state.uid) {
+                let gamer = JSON.parse(localStorage.getItem(player.uid));
+                if (gamer) {
+                    setState(state => ({...state, password: gamer.password, email: gamer.email}));
+                } else {
+                    const gamer = getUser(player.uid);
+                    setState(state => ({...state, password: gamer.password, email: gamer.email}));
+                }
             }
         });
-    }, [])
+    }, []);
 
     return (
         <div className={'box_one'}>

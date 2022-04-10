@@ -1,38 +1,45 @@
-import React from 'react';
-import {useDispatch} from "react-redux";
-import {changePageAction} from "../actions/gameActions";
+import React, {useEffect} from 'react';
+import {useDispatch, useSelector} from "react-redux";
+import {fb} from "../config/FareBaseConfig";
+import 'firebase/compat/firestore';
+import {changePageAction, changeTutorialAction} from "../actions/gameActions";
 import {playPage} from "../utils/Constants";
 
 const Tutorial = () => {
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
+    const tutorial = useSelector(state => state.tutorial);
+
+    async function getDescription() {
+        try {
+            const doc = await fb.firestore().collection('content').doc('tutorial').get();
+            if (doc.exists) {
+                return doc.data();
+            } else {
+                return {description: []};
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    useEffect(() => {
+        let tutorialLocalStorage = JSON.parse(localStorage.getItem('tutorial'));
+        if (tutorialLocalStorage) {
+            dispatch(changeTutorialAction(tutorialLocalStorage));
+        } else {
+           getDescription().then(data => {
+                localStorage.setItem('tutorial', JSON.stringify(data))
+                dispatch(changeTutorialAction(data))
+            })
+        }
+    },[])
 
     return (
         <div className={'box_one'}>
             <div className={'box_two'}>
                 <h5>
-                    <p>
-                        Snaky travels around Israel and wants to discover new sights. One can only envy his curiosity!
-                    </p>
-                    <p>
-                        Control the snake with the up, down, left and right keys to change the trajectory of
-                        movement.
-                        Increase points by passing through points on the playing field. Touching the edge of the
-                        field or
-                        the snake itself will end the level with the current score.
-                        Repeat the game to increase the score.
-                    </p>
-                    <p>
-                        For registered players, upon reaching a certain number of points for one level, a bonus card
-                        is
-                        opened. To advance to a new level and receive the next bonus, Snaky must collect the
-                        specified
-                        number of points. And also you can see yourself in the list of winners who scored the
-                        maximum
-                        number of points for the entire time of the game.
-                    </p>
-                    <p>
-                        Good luck and happy travels!
-                    </p>
+                    {!tutorial.description[0] && <p>...Loading</p>}
+                    {tutorial.description.map((item, index) => <p key={index}>{item}</p>)}
                 </h5>
                 <button className={'button button_big button_tutorial_autorization_play'}
                         onClick={() => dispatch(changePageAction(playPage))}>

@@ -2,12 +2,12 @@ import React from 'react';
 import logo from '../images/logo.svg';
 import {useDispatch, useSelector} from "react-redux";
 import {changePageAction} from "../actions/gameActions";
-import {authorizationPage, pageNavArr} from "../utils/Constants";
+import {authorizationPage, cabinetPage, pageNavArr} from "../utils/Constants";
 
 const Nav = () => {
     const dispatch = useDispatch();
     const page = useSelector(state => state.page);
-    const nickname = useSelector(state => state.nickname)
+    const nickname = useSelector(state => state.nickname);
     const temp = pageNavArr.filter(item => item !== page);
 
     return (
@@ -27,7 +27,7 @@ const Nav = () => {
                 Sign in
             </button>}
             {nickname && <button className={'button button_small button_nav'}
-                                 onClick={() => dispatch(changePageAction(authorizationPage))}>
+                                 onClick={() => dispatch(changePageAction(cabinetPage))}>
                 {nickname}
             </button>}
         </div>

@@ -1,7 +1,17 @@
 import {
-    CHANGE_GAME_POINTS, CHANGE_LEVEL, CHANGE_LEVEL_POINTS, CHANGE_PAGE, USER_AUTHORIZATION_EMAIL,
-    USER_AUTHORIZATION_GAME_POINTS, USER_AUTHORIZATION_LEVEL, USER_AUTHORIZATION_NICKNAME, USER_AUTHORIZATION_UID,
-    USER_REGISTRATION_EMAIL, USER_REGISTRATION_NICKNAME, USER_REGISTRATION_UID
+    CHANGE_GAME_POINTS,
+    CHANGE_LEVEL,
+    CHANGE_LEVEL_POINTS,
+    CHANGE_PAGE, CHANGE_TUTORIAL,
+    USER_AUTHORIZATION_EMAIL,
+    USER_AUTHORIZATION_GAME_POINTS,
+    USER_AUTHORIZATION_LEVEL,
+    USER_AUTHORIZATION_NICKNAME,
+    USER_AUTHORIZATION_PASSWORD,
+    USER_AUTHORIZATION_UID,
+    USER_REGISTRATION_EMAIL,
+    USER_REGISTRATION_NICKNAME,
+    USER_REGISTRATION_UID
 } from "../utils/Constants";
 
 export const changePageAction = page => ({
@@ -62,4 +72,19 @@ export const userAuthorizationActionLevel = level => ({
 export const userAuthorizationActionGamePoints = gamePoints => ({
     type: USER_AUTHORIZATION_GAME_POINTS,
     payload: gamePoints
+});
+
+export const userAuthorizationActionPassword = password => ({
+    type: USER_AUTHORIZATION_PASSWORD,
+    payload: password
+});
+
+export const changeTutorialAction = description => ({
+    type: CHANGE_TUTORIAL,
+    payload: description
+});
+
+export const changeSnakeColorAction = color => ({
+    type: CHANGE_TUTORIAL,
+    payload: color
 });

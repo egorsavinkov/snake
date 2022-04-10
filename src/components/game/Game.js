@@ -8,7 +8,7 @@ import Barrier from "./Barrier";
 import {
     changeGamePointsAction, changeLevelAction, changeLevelPointsAction, changePageAction
 } from "../../actions/gameActions";
-import showplace_1 from '../../images/showplace_1.jpg';
+import bc1 from '../../images/bc1.jpg';
 import {
     DOWN, gameOverPage, LEFT, levelArr, nextLevelPage, RIGHT, snakeArr, UP
 } from "../../utils/Constants";
@@ -170,7 +170,7 @@ const Game = () => {
         <div>
             <div className={`${styleCSS.level}`}>
                 <div>
-                    <img className={'showplace'} src={showplace_1} alt={'image_1'}/>
+                    <img className={'showplace'} src={bc1} alt={'image_1'}/>
                     {levelPoints < 3 && <h6>Up to the next level {3 - levelPoints} points</h6>}
                     {levelPoints >= 3 && <h6>You have {levelPoints} points per level</h6>}
                 </div>

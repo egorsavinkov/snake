@@ -16,7 +16,9 @@ const initialState = {
         one: levelArrOne,
         two: levelArrTwo,
         free: levelArrFree
-    }
+    },
+    tutorial: {description: []},
+    snakeColor: 'black'
 }
 
 export const store = createStore(gameReducer, initialState)
