@@ -1,13 +1,17 @@
 import React, {useState} from 'react';
-import {useDispatch} from "react-redux";
 import {fb} from "../config/FareBaseConfig";
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 import {getAuth, updateProfile} from "firebase/auth";
 import {
-    changePageAction, userRegistrationActionEmail, userRegistrationActionNickname, userRegistrationActionUid
+    changePageAction,
+    changeSnakeColorAction,
+    userAuthorizationActionEmail, userAuthorizationActionGamePoints, userAuthorizationActionLevel,
+    userAuthorizationActionNickname,
+    userAuthorizationActionPassword, userAuthorizationActionUid
 } from "../actions/gameActions";
 import {homePage} from "../utils/Constants";
+import {useDispatch} from "react-redux";
 
 const Registration = () => {
     const dispatch = useDispatch();
@@ -17,14 +21,15 @@ const Registration = () => {
         password: ''
     });
 
-    async function addUser(uid, email, password, nickname) {
+    async function addUser(uid, email, password) {
         try {
             const ref = await fb.firestore().collection('players').doc(uid);
             await ref.set({
                 uid, email, password,
                 nickname: state.nickname,
                 level: 'zero',
-                gamePoints: 0
+                gamePoints: 0,
+                snakeColor: 'black'
             })
         } catch (error) {
             console.log(error)
@@ -34,22 +39,26 @@ const Registration = () => {
     async function registration(em, pass) {
         try {
             const response = await fb.auth().createUserWithEmailAndPassword(em, pass);
-            console.log(response)
             const uid = response.user.uid;
             const email = response.user.email;
-            const nickname = response.user.displayName;
             const userID = {
                 email, uid,
                 nickname: state.nickname,
                 password: state.password,
                 level: 'zero',
-                gamePoints: 0
+                gamePoints: 0,
+                snakeColor: 'black'
             }
             localStorage.setItem(uid, JSON.stringify(userID));
-            await addUser(uid, email, state.password, nickname);
-            dispatch(userRegistrationActionNickname(nickname));
-            dispatch(userRegistrationActionEmail(email));
-            dispatch(userRegistrationActionUid(uid));
+            await addUser(uid, email, state.password);
+            await fb.auth().signInWithEmailAndPassword(em, pass);
+            dispatch(userAuthorizationActionEmail(email));
+            dispatch(userAuthorizationActionPassword(state.password))
+            dispatch(userAuthorizationActionNickname(state.nickname));
+            dispatch(userAuthorizationActionUid(uid));
+            dispatch(userAuthorizationActionGamePoints(0));
+            dispatch(userAuthorizationActionLevel('zero'));
+            dispatch(changeSnakeColorAction('black'))
             dispatch(changePageAction(homePage));
         } catch (error) {
             console.log(error);

@@ -1,11 +1,14 @@
 import React, {useEffect, useState} from 'react';
-import {useDispatch} from "react-redux";
 import {fb} from "../config/FareBaseConfig";
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
+import {useDispatch} from "react-redux";
 import {
-    changePageAction, userAuthorizationActionEmail, userAuthorizationActionGamePoints, userAuthorizationActionLevel,
-    userAuthorizationActionNickname, userAuthorizationActionPassword, userAuthorizationActionUid
+    changePageAction,
+    changeSnakeColorAction,
+    userAuthorizationActionEmail, userAuthorizationActionGamePoints, userAuthorizationActionLevel,
+    userAuthorizationActionNickname,
+    userAuthorizationActionPassword, userAuthorizationActionUid
 } from "../actions/gameActions";
 import {homePage} from "../utils/Constants";
 
@@ -19,6 +22,36 @@ const Authorization = () => {
         uid: ''
     });
 
+    const changeStoreUser = (email, password, nickname, uid, level, gamePoints, snakeColor) => {
+        dispatch(userAuthorizationActionEmail(email));
+        dispatch(userAuthorizationActionPassword(password))
+        dispatch(userAuthorizationActionNickname(nickname));
+        dispatch(userAuthorizationActionUid(uid));
+        dispatch(userAuthorizationActionGamePoints(gamePoints));
+        dispatch(userAuthorizationActionLevel(level));
+        dispatch(changeSnakeColorAction(snakeColor))
+        dispatch(changePageAction(homePage));
+    }
+
+    async function authorization(em, pass) {
+        try {
+            const response = await fb.auth().signInWithEmailAndPassword(em, pass);
+            const uidPlayer = response.user.uid;
+            let userID = JSON.parse(localStorage.getItem(uidPlayer));
+            if (!userID) {
+                const user = await getUser(uidPlayer);
+                localStorage.setItem(uidPlayer, JSON.stringify(user));
+                changeStoreUser(user.email, user.password, user.nickname,
+                    user.uid, user.level, user.gamePoints, user.snakeColor);
+            } else {
+                changeStoreUser(userID.email, userID.password, userID.nickname,
+                    userID.uid, userID.level, userID.gamePoints, userID.snakeColor);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     async function getUser(uidPlayer) {
         try {
             const ref = await fb.firestore().collection('players').doc(uidPlayer);
@@ -29,38 +62,11 @@ const Authorization = () => {
                 nickname: doc.data().nickname,
                 uid: doc.data().uid,
                 level: doc.data().level,
+                snakeColor: doc.data().snakeColor,
                 gamePoints: doc.data().gamePoints
             }
         } catch (error) {
             console.log(error)
-        }
-    }
-
-    const changeStore = (email, password, nickname, uid, level, gamePoints) => {
-        dispatch(userAuthorizationActionEmail(email));
-        dispatch(userAuthorizationActionPassword(password))
-        dispatch(userAuthorizationActionNickname(nickname));
-        dispatch(userAuthorizationActionUid(uid));
-        dispatch(userAuthorizationActionGamePoints(gamePoints));
-        dispatch(userAuthorizationActionLevel(level))
-        dispatch(changePageAction(homePage));
-    }
-
-    async function authorization(em, pass) {
-        try {
-            const response = await fb.auth().signInWithEmailAndPassword(em, pass);
-            console.log(response)
-            const uidPlayer = response.user.uid;
-            let userID = JSON.parse(localStorage.getItem(uidPlayer));
-            if (!userID) {
-                const user = await getUser(uidPlayer);
-                localStorage.setItem(uidPlayer, JSON.stringify(user));
-                changeStore(user.email, user.password, user.nickname, user.uid, user.level, user.gamePoints);
-            } else {
-                changeStore(userID.email, userID.password, userID.nickname, userID.uid, userID.level, userID.gamePoints);
-            }
-        } catch (error) {
-            console.log(error);
         }
     }
 
@@ -76,7 +82,7 @@ const Authorization = () => {
                 }
             }
         });
-    }, []);
+    },[]);
 
     return (
         <div className={'box_one'}>

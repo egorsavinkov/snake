@@ -2,7 +2,7 @@ import {
     CHANGE_GAME_POINTS,
     CHANGE_LEVEL,
     CHANGE_LEVEL_POINTS,
-    CHANGE_PAGE, CHANGE_TUTORIAL,
+    CHANGE_PAGE, CHANGE_SNAKE_COLOR, CHANGE_TUTORIAL,
     USER_AUTHORIZATION_EMAIL,
     USER_AUTHORIZATION_GAME_POINTS,
     USER_AUTHORIZATION_LEVEL,
@@ -85,6 +85,6 @@ export const changeTutorialAction = description => ({
 });
 
 export const changeSnakeColorAction = color => ({
-    type: CHANGE_TUTORIAL,
+    type: CHANGE_SNAKE_COLOR,
     payload: color
 });

@@ -2,7 +2,7 @@ import {
     CHANGE_GAME_POINTS,
     CHANGE_LEVEL,
     CHANGE_LEVEL_POINTS,
-    CHANGE_PAGE, CHANGE_TUTORIAL,
+    CHANGE_PAGE, CHANGE_SNAKE_COLOR, CHANGE_TUTORIAL,
     USER_AUTHORIZATION_EMAIL,
     USER_AUTHORIZATION_GAME_POINTS,
     USER_AUTHORIZATION_LEVEL,
@@ -44,8 +44,9 @@ export const gameReducer = (state, action) => {
             return {...state, level: action.payload};
         case USER_AUTHORIZATION_GAME_POINTS:
             return {...state, gamePoints: action.payload};
+        case CHANGE_SNAKE_COLOR:
+            return {...state, snakeColor: action.payload};
         default:
             return state;
     }
 }
-
