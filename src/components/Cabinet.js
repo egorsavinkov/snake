@@ -1,13 +1,45 @@
 import React, {useState} from 'react';
-import bc1 from "../images/bc1.jpg";
 import {useDispatch, useSelector} from "react-redux";
 import {changePageAction, changeSnakeColorAction} from "../actions/gameActions";
-import {homePage} from "../utils/Constants";
+import {bonusCard, homePage, levelArr} from "../utils/Constants";
+import BonusCard from "./BonusCard";
 
 const Cabinet = () => {
     const dispatch = useDispatch();
     const [color, setColor] = useState('');
     const gamePoints = useSelector(state => state.gamePoints);
+    const levelState = useSelector(state => state.level);
+    const [tempLevel, setTempLevel] = useState(levelState);
+
+    const temp = function searchBonusCard(value) {
+        let lvl = levelArr.indexOf(value);
+        return bonusCard[lvl];
+    }
+
+    const previousBonusCard = (value) => {
+        if (value === 'zero') {
+            return
+        }
+        let lvlTemp = levelArr.indexOf(value);
+        if (lvlTemp <= 1) {
+            return
+        }
+        let lvl = levelArr.indexOf(value);
+        setTempLevel(levelArr[lvl - 1])
+    }
+
+    const nextBonusCard = (value) => {
+        if (value === 'finish') {
+            return
+        }
+        let lvlTemp = levelArr.indexOf(value);
+        let lvlState = levelArr.indexOf(levelState);
+        if (lvlTemp >= lvlState) {
+            return
+        }
+        let lvl = levelArr.indexOf(value);
+        setTempLevel(levelArr[lvl + 1])
+    }
 
     const changeSnakeColor = (color) => {
         switch (color) {
@@ -30,23 +62,22 @@ const Cabinet = () => {
                 <div id="bonusCard">
                     <h2>Bonus card</h2>
                     <div className={'bonusCard'}>
-                        <button className={'button button_small'}>Past</button>
-                        <div id="card">
-                            <img className={'cardImage'} src={bc1} alt={'showplace'}/>
-                            <div className={'cardText'}>
-                                <h5>Up to the next level </h5>
-                                <h6>Up to the next level 150 points Up to the next level 150 points Up to the next level
-                                    150 points</h6>
-                            </div>
-                        </div>
-                        <button className={'button button_small'}>Next</button>
+                        <button className={'button button_small'}
+                                onClick={() => previousBonusCard(tempLevel)}
+                        >Previous
+                        </button>
+                        <BonusCard card={temp(tempLevel)}/>
+                        <button className={'button button_small'}
+                                onClick={() => nextBonusCard(tempLevel)}
+                        >Next
+                        </button>
                     </div>
                 </div>
                 <h4 id="pointsCabinet">You scored {gamePoints} points for the entire game</h4>
                 <div id="formChangeSnakeColor">
                     <select id="changeSnakeColor" onChange={(event) =>
                         setColor(event.target.value)}>
-                        <option defaultValue={'none'} disabled>Select snake color</option>
+                        <option defaultValue={'none'} selected disabled>Select snake color</option>
                         <option value="green">Green</option>
                         <option value="red">Red</option>
                         <option value="blue">Blue</option>

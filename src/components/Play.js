@@ -1,10 +1,11 @@
 import React from 'react';
-import {useDispatch} from "react-redux";
-import {changePageAction} from "../actions/gameActions";
+import {useDispatch, useSelector} from "react-redux";
+import {changeLevelAction, changePageAction} from "../actions/gameActions";
 import {gamePage, registrationPage} from "../utils/Constants";
 
 const Play = () => {
     const dispatch = useDispatch()
+    const levelState = useSelector(state => state.level);
 
     return (
         <div className={'box_one'}>
@@ -19,7 +20,11 @@ const Play = () => {
                 <div className={'box_two'}>
                     <h3>Play without registration and the ability to track your points</h3>
                     <button className={'button button_big button_tutorial_autorization_play'}
-                            onClick={() => dispatch(changePageAction(gamePage))}>
+                            onClick={() => {
+                                if (levelState === 'finish') {
+                                    dispatch(changeLevelAction('zero'))
+                                }
+                                dispatch(changePageAction(gamePage))}}>
                         Play
                     </button>
                 </div>

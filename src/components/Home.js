@@ -1,11 +1,12 @@
 import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {changePageAction} from "../actions/gameActions";
+import {changeLevelAction, changePageAction} from "../actions/gameActions";
 import {gamePage, playPage} from "../utils/Constants";
 
 const Home = () => {
     const dispatch = useDispatch();
     const nickname = useSelector(state => state.nickname);
+    const levelState = useSelector(state => state.level);
 
     return (
         <div className={'home'}>
@@ -19,7 +20,11 @@ const Home = () => {
                     Play
                 </button>}
                 {nickname && <button type={'submit'} className={'button button_big'}
-                                     onClick={() => dispatch(changePageAction(gamePage))}>
+                                     onClick={() => {
+                                         if (levelState === 'finish') {
+                                             dispatch(changeLevelAction('zero'))
+                                         }
+                                         dispatch(changePageAction(gamePage))}}>
                     Play
                 </button>}
             </div>

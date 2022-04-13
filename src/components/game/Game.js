@@ -151,7 +151,7 @@ const Game = () => {
     }
 
     const searchNextLevel = (currentLevel) => {
-        let lvl = levelArr.indexOf(currentLevel)
+        let lvl = levelArr.indexOf(currentLevel);
         return levelArr[lvl + 1]
     }
 

@@ -2,6 +2,7 @@ import React from 'react';
 import {fb} from "../config/FareBaseConfig";
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
+import firebase from "firebase/compat/app";
 import logo from '../images/logo.svg';
 import {useDispatch, useSelector} from "react-redux";
 import {
@@ -41,6 +42,21 @@ const Nav = () => {
             const doc = await ref.get();
             if (doc.exists) {
                 await ref.set({uid: uid, nickname, gamePoints, level, snakeColor, email, password})
+            }
+        } catch (error) {
+            console.log(error)
+        }
+        try {
+            const ref = await fb.firestore().collection('players').doc('winners')
+            const doc = await ref.get();
+            if (doc.exists) {
+                await ref.update({
+                    gamers: firebase.firestore.FieldValue.arrayUnion({
+                        nickname,gamePoints
+                    })
+                })
+            } else {
+                await ref.set({gamers: [{nickname,gamePoints}]})
             }
         } catch (error) {
             console.log(error)

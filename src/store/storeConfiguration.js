@@ -1,6 +1,6 @@
 import {createStore} from "redux";
 import {gameReducer} from "../reducers/gameReducer";
-import {homePage, levelArrFree, levelArrOne, levelArrTwo, levelArrZero} from "../utils/Constants";
+import {homePage, levelArrThree, levelArrOne, levelArrTwo, levelArrZero} from "../utils/Constants";
 
 const initialState = {
     nickname: '',
@@ -15,7 +15,7 @@ const initialState = {
         zero: levelArrZero,
         one: levelArrOne,
         two: levelArrTwo,
-        free: levelArrFree
+        three: levelArrThree
     },
     tutorial: {description: []},
     snakeColor: 'black'
