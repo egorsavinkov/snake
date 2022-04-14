@@ -4,14 +4,12 @@ import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 import {useDispatch} from "react-redux";
 import {
-    changePageAction,
-    changeSnakeColorAction,
+    changePageAction, changeSnakeColorAction,
     userAuthorizationActionEmail, userAuthorizationActionGamePoints, userAuthorizationActionLevel,
     userAuthorizationActionNickname,
     userAuthorizationActionPassword, userAuthorizationActionUid
 } from "../actions/gameActions";
 import {homePage} from "../utils/Constants";
-
 
 const Authorization = () => {
     const dispatch = useDispatch();
@@ -22,17 +20,6 @@ const Authorization = () => {
         uid: ''
     });
 
-    const changeStoreUser = (email, password, nickname, uid, level, gamePoints, snakeColor) => {
-        dispatch(userAuthorizationActionEmail(email));
-        dispatch(userAuthorizationActionPassword(password))
-        dispatch(userAuthorizationActionNickname(nickname));
-        dispatch(userAuthorizationActionUid(uid));
-        dispatch(userAuthorizationActionGamePoints(gamePoints));
-        dispatch(userAuthorizationActionLevel(level));
-        dispatch(changeSnakeColorAction(snakeColor))
-        dispatch(changePageAction(homePage));
-    }
-
     async function authorization(em, pass) {
         try {
             const response = await fb.auth().signInWithEmailAndPassword(em, pass);
@@ -40,7 +27,7 @@ const Authorization = () => {
             let userID = JSON.parse(localStorage.getItem(uidPlayer));
             if (!userID) {
                 const user = await getUser(uidPlayer);
-                localStorage.setItem(uidPlayer, JSON.stringify(user));
+                localStorage.setItem('player', JSON.stringify(user));
                 changeStoreUser(user.email, user.password, user.nickname,
                     user.uid, user.level, user.gamePoints, user.snakeColor);
             } else {
@@ -70,19 +57,23 @@ const Authorization = () => {
         }
     }
 
+    const changeStoreUser = (email, password, nickname, uid, level, gamePoints, snakeColor) => {
+        dispatch(userAuthorizationActionEmail(email));
+        dispatch(userAuthorizationActionPassword(password))
+        dispatch(userAuthorizationActionNickname(nickname));
+        dispatch(userAuthorizationActionUid(uid));
+        dispatch(userAuthorizationActionGamePoints(gamePoints));
+        dispatch(userAuthorizationActionLevel(level));
+        dispatch(changeSnakeColorAction(snakeColor));
+        dispatch(changePageAction(homePage));
+    }
+
     useEffect(() => {
-        fb.auth().onAuthStateChanged(function (player) {
-            if (player && !state.uid) {
-                let gamer = JSON.parse(localStorage.getItem(player.uid));
-                if (gamer) {
-                    setState(state => ({...state, password: gamer.password, email: gamer.email}));
-                } else {
-                    const gamer = getUser(player.uid);
-                    setState(state => ({...state, password: gamer.password, email: gamer.email}));
-                }
-            }
-        });
-    },[]);
+        let pl = JSON.parse(localStorage.getItem('player'));
+        if (pl) {
+            setState(state => ({...state, password: pl.password, email: pl.email}));
+        }
+    }, []);
 
     return (
         <div className={'box_one'}>

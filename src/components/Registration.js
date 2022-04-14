@@ -49,7 +49,7 @@ const Registration = () => {
                 gamePoints: 0,
                 snakeColor: 'black'
             }
-            localStorage.setItem(uid, JSON.stringify(userID));
+            localStorage.setItem('player', JSON.stringify(userID));
             await addUser(uid, email, state.password);
             await fb.auth().signInWithEmailAndPassword(em, pass);
             dispatch(userAuthorizationActionEmail(email));

@@ -188,3 +188,8 @@ td {
 .yellow {
     background-color: yellow;
 }
+
+table thead tr th{
+    table-layout: fixed;
+    padding: 5px;
+}

@@ -37,10 +37,10 @@ const Tutorial = () => {
     return (
         <div className={'box_one'}>
             <div className={'box_two'}>
-                <h5>
-                    {!tutorial.description[0] && <p>...Loading</p>}
-                    {tutorial.description.map((item, index) => <p key={index}>{item}</p>)}
-                </h5>
+                <div>
+                    {!tutorial.description[0] && <h2>...Loading</h2>}
+                    {tutorial.description.map((item, index) => <h5 key={index}>{item}</h5>)}
+                </div>
                 <button className={'button button_big button_tutorial_autorization_play'}
                         onClick={() => dispatch(changePageAction(playPage))}>
                     Play

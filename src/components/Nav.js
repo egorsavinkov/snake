@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {fb} from "../config/FareBaseConfig";
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
@@ -6,8 +6,15 @@ import firebase from "firebase/compat/app";
 import logo from '../images/logo.svg';
 import {useDispatch, useSelector} from "react-redux";
 import {
-    changeGamePointsAction, changeLevelAction, changeLevelPointsAction, changePageAction, changeSnakeColorAction,
-    userAuthorizationActionEmail, userAuthorizationActionNickname, userAuthorizationActionPassword,
+    changeGamePointsAction,
+    changeLevelAction,
+    changeLevelPointsAction,
+    changePageAction,
+    changeSnakeColorAction,
+    userAuthorizationActionEmail,
+    userAuthorizationActionGamePoints, userAuthorizationActionLevel,
+    userAuthorizationActionNickname,
+    userAuthorizationActionPassword,
     userAuthorizationActionUid
 } from "../actions/gameActions";
 import {
@@ -33,7 +40,34 @@ const Nav = () => {
         const userID = {
             uid, nickname, gamePoints, level, snakeColor, email, password
         }
-        localStorage.setItem(uid, JSON.stringify(userID));
+        localStorage.setItem('player', JSON.stringify(userID));
+    }
+
+    async function updateWinners() {
+        try {
+            const ref = await fb.firestore().collection('players').doc('winners');
+            const doc = await ref.get();
+            if (doc.exists) {
+                const tempArr = doc.data().gamers;
+                for (let i = 0; i < tempArr.length; i++) {
+                    if (tempArr[i].uid === uid) {
+                        tempArr[i].gamePoints = gamePoints;
+                    }
+                }
+                for (let i = 0; i < tempArr.length; i++) {
+                    for (let j = 1; j < tempArr.length; j++) {
+                        if (tempArr[i].gamePoints < tempArr[j].gamePoints) {
+                            const temp = tempArr[i];
+                            tempArr[i] = tempArr[j];
+                            tempArr[j] = temp;
+                        }
+                    }
+                }
+                await ref.set({gamers: [...tempArr]})
+            }
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     async function updateUserAccount(uid) {
@@ -42,21 +76,6 @@ const Nav = () => {
             const doc = await ref.get();
             if (doc.exists) {
                 await ref.set({uid: uid, nickname, gamePoints, level, snakeColor, email, password})
-            }
-        } catch (error) {
-            console.log(error)
-        }
-        try {
-            const ref = await fb.firestore().collection('players').doc('winners')
-            const doc = await ref.get();
-            if (doc.exists) {
-                await ref.update({
-                    gamers: firebase.firestore.FieldValue.arrayUnion({
-                        nickname,gamePoints
-                    })
-                })
-            } else {
-                await ref.set({gamers: [{nickname,gamePoints}]})
             }
         } catch (error) {
             console.log(error)
@@ -75,6 +94,59 @@ const Nav = () => {
         dispatch(changePageAction(homePage));
         fb.auth().signOut();
     }
+
+    const changeStoreUser = (email, password, nickname, uid, level, gamePoints, snakeColor) => {
+        dispatch(userAuthorizationActionEmail(email));
+        dispatch(userAuthorizationActionPassword(password))
+        dispatch(userAuthorizationActionNickname(nickname));
+        dispatch(userAuthorizationActionUid(uid));
+        dispatch(userAuthorizationActionGamePoints(gamePoints));
+        dispatch(userAuthorizationActionLevel(level));
+        dispatch(changeSnakeColorAction(snakeColor));
+        dispatch(changePageAction(homePage));
+    }
+
+    const localStorageUpdate = async function (uid) {
+        try {
+            const ref = await fb.firestore().collection('players').doc(uid).get();
+            const user = {
+                email: ref.data().email,
+                password: ref.data().password,
+                nickname: ref.data().nickname,
+                uid: ref.data().uid,
+                level: ref.data().level,
+                snakeColor: ref.data().snakeColor,
+                gamePoints: ref.data().gamePoints
+            }
+            localStorage.setItem('player', JSON.stringify(user));
+            changeStoreUser(user.email, user.password, user.nickname,
+                user.uid, user.level, user.gamePoints, user.snakeColor);
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const sessionUpdate = async function () {
+        try {
+            await fb.auth().onAuthStateChanged(function (player) {
+                if (player && !uid) {
+                    let gamer = JSON.parse(localStorage.getItem('player'));
+                    if (gamer) {
+                        changeStoreUser(gamer.email, gamer.password, gamer.nickname,
+                            gamer.uid, gamer.level, gamer.gamePoints, gamer.snakeColor);
+                    } else {
+                        localStorageUpdate(player.uid)
+                    }
+                }
+            });
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    useEffect(() => {
+        sessionUpdate();
+    })
 
     return (
         <div className={'nav'}>
@@ -101,6 +173,7 @@ const Nav = () => {
                         onClick={() => {
                             updateLocalStorage(uid)
                             updateUserAccount(uid);
+                            updateWinners();
                             logOut()
                         }}>
                     Sign out

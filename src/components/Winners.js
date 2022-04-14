@@ -1,20 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import 'firebase/compat/firestore';
-import {fb} from "../config/FareBaseConfig";
 import {useSelector} from "react-redux";
+import {getAllPlayers} from "../services/getAllPlayers";
 
 const Winners = () => {
     const [state, setState] = useState({gamers: []});
-    const nickname = useSelector(state => state.nickname);
-
-    async function getAllPlayers() {
-        const doc = await fb.firestore().collection('players').doc('winners').get();
-        if (doc.exists) {
-            return doc.data()
-        } else {
-            return {gamers: []}
-        }
-    }
+    const uid = useSelector(state => state.uid);
 
     useEffect(() => {
         getAllPlayers().then(data => setState(state => ({...state, gamers: data.gamers})))
@@ -28,28 +19,26 @@ const Winners = () => {
                 <h2>Loading...</h2>}
                 {state.gamers[0] && <table>
                     <thead>
-                    {state.gamers.map((item, index) => {
-                        if (nickname === item.nickname) {
-                            return (
-                            <tr key={index}>
-                                <th>
-                                    <h4 className={'yellow'}>{`${item.nickname} ___________________________________________________________ 
-                                ${item.gamePoints}`}</h4>
-                                </th>
-                            </tr>
-                            )
-                        } else {
-                            return (
-                                <tr key={index}>
-                                <th>
-                                    <h4>{`${item.nickname} ___________________________________________________________ 
-                                ${item.gamePoints}`}</h4>
-                                </th>
-                            </tr>
-                            )
+                    {state.gamers.sort().map((item, index) => {
+                            if (uid === item.uid) {
+                                return (
+                                    <tr key={index} >
+                                        <th className={'yellow'}><h4>{item.nickname}</h4></th>
+                                        <th><h4>___________________________________________________________</h4></th>
+                                        <th className={'yellow'}><h4>{item.gamePoints}</h4></th>
+                                    </tr>
+                                )
+                            } else {
+                                return (
+                                    <tr key={index}>
+                                        <th><h4>{item.nickname}</h4></th>
+                                        <th><h4>___________________________________________________________</h4></th>
+                                        <th><h4>{item.gamePoints}</h4></th>
+                                    </tr>
+                                )
+                            }
                         }
-                    }
-                        ).sort()}
+                    )}
                     </thead>
                 </table>}
             </div>
