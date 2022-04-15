@@ -8,17 +8,36 @@ import Barrier from "./Barrier";
 import {
     changeGamePointsAction, changeLevelAction, changeLevelPointsAction, changePageAction
 } from "../../actions/gameActions";
-import bc1 from '../../images/bc1.jpg';
 import {
-    DOWN, gameOverPage, LEFT, levelArr, nextLevelPage, RIGHT, snakeArr, UP
+    DOWN, gameOverPage, LEFT, levelArr, levelBackground, levelShowplace, nextLevelPage, RIGHT, snakeArr, UP
 } from "../../utils/Constants";
 
 const Game = () => {
     const gamePoints = useSelector(state => state.gamePoints);
     const levelPoints = useSelector(state => state.levelPoints);
     const levelState = useSelector(state => state.level);
-    const levelBarrier = useSelector(state => state.barrier[levelState])
-    const dispatch = useDispatch()
+    const levelBarrier = useSelector(state => state.barrier[levelState]);
+    const dispatch = useDispatch();
+    const [levelShowplaceState, setLevelShowplaceState] = useState(0)
+
+    const changeLevelShowplaceState = (points) => {
+        switch (points) {
+            case 25:
+                return setLevelShowplaceState(1);
+            case 50:
+                return setLevelShowplaceState(2);
+            case 75:
+                return setLevelShowplaceState(3);
+            case 100:
+                return setLevelShowplaceState(4);
+        }
+    }
+
+    const searchImagesLevelShowplace = (level) => {
+        let lvl = levelArr.indexOf(level);
+        let arr = levelShowplace[lvl];
+        return arr[levelShowplaceState]
+    }
 
     const getRandomCoordinates = () => {
         let min = 1;
@@ -133,19 +152,16 @@ const Game = () => {
     const changeLevelSpeed = (level) => {
         switch (level) {
             case levelArr[0]:
-                setSpeed(200);
+                setSpeed(130);
                 break;
             case levelArr[1]:
-                setSpeed(150);
+                setSpeed(110);
                 break;
             case levelArr[2]:
-                setSpeed(100);
+                setSpeed(90);
                 break;
             case levelArr[3]:
-                setSpeed(50);
-                break;
-            default:
-                setSpeed(150);
+                setSpeed(70);
                 break;
         }
     }
@@ -162,6 +178,7 @@ const Game = () => {
         checkIfEat();
         checkIfOutBarrier();
         changeLevelSpeed(levelState);
+        changeLevelShowplaceState(levelPoints);
     })
 
     useInterval(() => moveSnake(), speed);
@@ -170,11 +187,11 @@ const Game = () => {
         <div>
             <div className={`${styleCSS.level}`}>
                 <div>
-                    <img className={'showplace'} src={bc1} alt={'image_1'}/>
-                    {levelPoints < 3 && <h6>Up to the next level {3 - levelPoints} points</h6>}
-                    {levelPoints >= 3 && <h6>You have {levelPoints} points per level</h6>}
+                    <img className={'showplace'} src={searchImagesLevelShowplace(levelState)} alt={'image'}/>
+                    {levelPoints < 100 && <h6>Up to the next level {100 - levelPoints} points</h6>}
+                    {levelPoints >= 100 && <h6>You have {levelPoints} points per level</h6>}
                 </div>
-                {levelPoints >= 3 &&
+                {levelPoints >= 100 &&
                 <button className={`button button_small ${styleCSS.button_next_level}`}
                         onClick={() => {
                             dispatch(changePageAction(nextLevelPage));
@@ -184,7 +201,7 @@ const Game = () => {
                 </button>
                 }
             </div>
-            <div className={`${styleCSS.game_area}`}>
+            <div className={`${levelBackground[levelState]}`}>
                 <Snake snakeDots={snakeDots}/>
                 <Point dot={point}/>
                 <Barrier/>

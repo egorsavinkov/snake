@@ -1,4 +1,44 @@
-.game_area {
+.game_area_f1 {
+    background-image: url('/src/images/f1.jpg');
+    position: relative;
+    padding: 10px;
+    border: #008CBA solid 2px;
+    border-radius: 5px;
+    /*margin-top: 20px;*/
+    margin: 30px auto;
+    /*width: 100%;*/
+    width: 600px;
+    height: 600px;
+}
+
+.game_area_f2 {
+    background-image: url('/src/images/f2.jpg');
+    position: relative;
+    padding: 10px;
+    border: #008CBA solid 2px;
+    border-radius: 5px;
+    /*margin-top: 20px;*/
+    margin: 30px auto;
+    /*width: 100%;*/
+    width: 600px;
+    height: 600px;
+}
+
+.game_area_f3 {
+    background-image: url('/src/images/f3.jpg');
+    position: relative;
+    padding: 10px;
+    border: #008CBA solid 2px;
+    border-radius: 5px;
+    /*margin-top: 20px;*/
+    margin: 30px auto;
+    /*width: 100%;*/
+    width: 600px;
+    height: 600px;
+}
+
+.game_area_f4 {
+    background-image: url('/src/images/f4.jpg');
     position: relative;
     padding: 10px;
     border: #008CBA solid 2px;
