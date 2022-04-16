@@ -75,9 +75,9 @@ const Cabinet = () => {
                 </div>
                 <h4 id="pointsCabinet">You scored {gamePoints} points for the entire game</h4>
                 <div id="formChangeSnakeColor">
-                    <select id="changeSnakeColor" onChange={(event) =>
+                    <select id="changeSnakeColor" defaultValue={'DEFAULT'} onChange={(event) =>
                         setColor(event.target.value)}>
-                        <option defaultValue={'none'} selected disabled>Select snake color</option>
+                        <option value="DEFAULT" disabled>Select snake color</option>
                         <option value="green">Green</option>
                         <option value="red">Red</option>
                         <option value="blue">Blue</option>

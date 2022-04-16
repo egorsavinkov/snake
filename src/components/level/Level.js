@@ -6,16 +6,32 @@ import styleCSS from './level.module.css'
 
 const Level = () => {
     const levelPoints = useSelector(state => state.levelPoints);
-    const levelState = useSelector(state => state.level)
+    const levelState = useSelector(state => state.level);
+    const uid = useSelector(state => state.uid);
     const dispatch = useDispatch();
 
     return (
         <div>
-            {levelState !== 'finish' && <div className={'box_one'}>
+            {levelState !== 'finish' && uid && <div className={'box_one'}>
                 <div className={'box_two'}>
                     <h1>Level passed!</h1>
                     <h3>A new bonus card has appeared in your personal account!<br/>Your result {levelPoints} points.
                     </h3>
+                </div>
+                <div>
+                    <button className={`button button_big ${styleCSS.button_level}`}
+                            onClick={() => {
+                                dispatch(changePageAction(gamePage))
+                                dispatch(changeLevelPointsAction(0))
+                            }}>
+                        Next level
+                    </button>
+                </div>
+            </div>}
+            {levelState !== 'finish' && !uid && <div className={'box_one'}>
+                <div className={'box_two'}>
+                    <h1>Level passed!</h1>
+                    <h3>Your result {levelPoints} points.</h3>
                 </div>
                 <div>
                     <button className={`button button_big ${styleCSS.button_level}`}

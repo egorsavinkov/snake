@@ -1,14 +1,23 @@
 import React, {useEffect, useState} from 'react';
 import 'firebase/compat/firestore';
 import {useSelector} from "react-redux";
-import {getAllPlayers} from "../services/getAllPlayers";
+import {updateFirebase} from "../services/updateFirebase";
 
 const Winners = () => {
     const [state, setState] = useState({gamers: []});
+    const email = useSelector(state => state.email);
+    const nickname = useSelector(state => state.nickname);
+    const password = useSelector(state => state.password);
     const uid = useSelector(state => state.uid);
-
+    const gamePoints = useSelector(state => state.gamePoints);
+    const level = useSelector(state => state.level);
+    const snakeColor = useSelector(state => state.snakeColor);
     useEffect(() => {
-        getAllPlayers().then(data => setState(state => ({...state, gamers: data.gamers})))
+        updateFirebase(uid, nickname, gamePoints, level, snakeColor, email, password)
+            .then(winnersArr => {
+                localStorage.setItem('winners', JSON.stringify(winnersArr));
+                setState(state => ({...state, gamers: winnersArr}))
+            })
     }, [])
 
     return (
@@ -22,7 +31,7 @@ const Winners = () => {
                     {state.gamers.sort().map((item, index) => {
                             if (uid === item.uid) {
                                 return (
-                                    <tr key={index} >
+                                    <tr key={index}>
                                         <th className={'yellow'}><h4>{item.nickname}</h4></th>
                                         <th><h4>___________________________________________________________</h4></th>
                                         <th className={'yellow'}><h4>{item.gamePoints}</h4></th>

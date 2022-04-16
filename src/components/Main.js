@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {useSelector} from "react-redux";
 import Home from "./Home";
 import Play from "./Play";
@@ -15,10 +15,21 @@ import {
     authorizationPage, cabinetPage, gameOverPage, gamePage,
     homePage, nextLevelPage, playPage, registrationPage, tutorialPage, winnersPage
 } from "../utils/Constants";
+import updateLocalStorage from "../services/updateLocalStorage";
 
 const Main = () => {
     const page = useSelector(state => state.page)
+    const gamePoints = useSelector(state => state.gamePoints);
+    const uid = useSelector(state => state.uid);
+    const nickname = useSelector(state => state.nickname);
+    const password = useSelector(state => state.password);
+    const email = useSelector(state => state.email);
+    const level = useSelector(state => state.level);
+    const snakeColor = useSelector(state => state.snakeColor);
 
+    useEffect(() => {
+        updateLocalStorage(uid, nickname, gamePoints, level, snakeColor, email, password);
+    })
     switch (page) {
         case homePage:
             return <div><Nav/><Home/></div>

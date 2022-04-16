@@ -24,15 +24,15 @@ const Authorization = () => {
         try {
             const response = await fb.auth().signInWithEmailAndPassword(em, pass);
             const uidPlayer = response.user.uid;
-            let userID = JSON.parse(localStorage.getItem(uidPlayer));
-            if (!userID) {
+            let player = JSON.parse(localStorage.getItem('player'));
+            if (!player) {
                 const user = await getUser(uidPlayer);
                 localStorage.setItem('player', JSON.stringify(user));
                 changeStoreUser(user.email, user.password, user.nickname,
                     user.uid, user.level, user.gamePoints, user.snakeColor);
             } else {
-                changeStoreUser(userID.email, userID.password, userID.nickname,
-                    userID.uid, userID.level, userID.gamePoints, userID.snakeColor);
+                changeStoreUser(player.email, player.password, player.nickname,
+                    player.uid, player.level, player.gamePoints, player.snakeColor);
             }
         } catch (error) {
             console.log(error);

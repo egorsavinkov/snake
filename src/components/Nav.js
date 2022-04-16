@@ -2,7 +2,6 @@ import React, {useEffect} from 'react';
 import {fb} from "../config/FareBaseConfig";
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
-import firebase from "firebase/compat/app";
 import logo from '../images/logo.svg';
 import {useDispatch, useSelector} from "react-redux";
 import {
@@ -23,6 +22,8 @@ import {
     homePage,
     pageNavArr
 } from "../utils/Constants";
+import {updateFirebase} from "../services/updateFirebase";
+import updateLocalStorage from "../services/updateLocalStorage";
 
 const Nav = () => {
     const dispatch = useDispatch();
@@ -35,52 +36,6 @@ const Nav = () => {
     const snakeColor = useSelector(state => state.snakeColor);
     const uid = useSelector(state => state.uid);
     const temp = pageNavArr.filter(item => item !== page);
-
-    const updateLocalStorage = (uid) => {
-        const userID = {
-            uid, nickname, gamePoints, level, snakeColor, email, password
-        }
-        localStorage.setItem('player', JSON.stringify(userID));
-    }
-
-    async function updateWinners() {
-        try {
-            const ref = await fb.firestore().collection('players').doc('winners');
-            const doc = await ref.get();
-            if (doc.exists) {
-                const tempArr = doc.data().gamers;
-                for (let i = 0; i < tempArr.length; i++) {
-                    if (tempArr[i].uid === uid) {
-                        tempArr[i].gamePoints = gamePoints;
-                    }
-                }
-                for (let i = 0; i < tempArr.length; i++) {
-                    for (let j = 1; j < tempArr.length; j++) {
-                        if (tempArr[i].gamePoints < tempArr[j].gamePoints) {
-                            const temp = tempArr[i];
-                            tempArr[i] = tempArr[j];
-                            tempArr[j] = temp;
-                        }
-                    }
-                }
-                await ref.set({gamers: [...tempArr]})
-            }
-        } catch (error) {
-            console.log(error)
-        }
-    }
-
-    async function updateUserAccount(uid) {
-        try {
-            const ref = await fb.firestore().collection('players').doc(uid)
-            const doc = await ref.get();
-            if (doc.exists) {
-                await ref.set({uid: uid, nickname, gamePoints, level, snakeColor, email, password})
-            }
-        } catch (error) {
-            console.log(error)
-        }
-    }
 
     function logOut() {
         dispatch(userAuthorizationActionNickname(''));
@@ -106,7 +61,7 @@ const Nav = () => {
         dispatch(changePageAction(homePage));
     }
 
-    const localStorageUpdate = async function (uid) {
+    const lSUpdate = async function (uid) {
         try {
             const ref = await fb.firestore().collection('players').doc(uid).get();
             const user = {
@@ -135,7 +90,7 @@ const Nav = () => {
                         changeStoreUser(gamer.email, gamer.password, gamer.nickname,
                             gamer.uid, gamer.level, gamer.gamePoints, gamer.snakeColor);
                     } else {
-                        localStorageUpdate(player.uid)
+                        lSUpdate(player.uid)
                     }
                 }
             });
@@ -146,7 +101,7 @@ const Nav = () => {
 
     useEffect(() => {
         sessionUpdate();
-    })
+    });
 
     return (
         <div className={'nav'}>
@@ -171,10 +126,9 @@ const Nav = () => {
                 </button>
                 <button className={'button button_small button_nav'}
                         onClick={() => {
-                            updateLocalStorage(uid)
-                            updateUserAccount(uid);
-                            updateWinners();
-                            logOut()
+                            updateLocalStorage(uid, nickname, gamePoints, level, snakeColor, email, password);
+                            updateFirebase(uid, nickname, gamePoints, level, snakeColor, email, password);
+                            logOut();
                         }}>
                     Sign out
                 </button>

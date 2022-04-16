@@ -9,7 +9,18 @@ import {
     changeGamePointsAction, changeLevelAction, changeLevelPointsAction, changePageAction
 } from "../../actions/gameActions";
 import {
-    DOWN, gameOverPage, LEFT, levelArr, levelBackground, levelShowplace, nextLevelPage, RIGHT, snakeArr, UP
+    DOWN,
+    gameOverPage,
+    LEFT,
+    levelArr,
+    levelArrOne, levelArrThree,
+    levelArrTwo,
+    levelBackground,
+    levelShowplace,
+    nextLevelPage,
+    RIGHT,
+    snakeArr,
+    UP
 } from "../../utils/Constants";
 
 const Game = () => {
@@ -171,6 +182,40 @@ const Game = () => {
         return levelArr[lvl + 1]
     }
 
+    const searchStartPositionEatSnake = () => {
+        for (let i = 0; i < snakeDots.length; i++) {
+            if (snakeDots[i][0] === point[0] && snakeDots[i][1] === point[1]) {
+                setPoint(getRandomCoordinates());
+            }
+        }
+    }
+
+    const searchStartPositionEatBarrier = (level) => {
+        switch (level) {
+            case 'one':
+                for (let i = 0; i < levelArrOne.length; i++) {
+                    if (levelArrOne[i][0] === point[0] && levelArrOne[i][1] === point[1]) {
+                        setPoint(getRandomCoordinates());
+                    }
+                }
+                break;
+            case 'two':
+                for (let i = 0; i < levelArrTwo.length; i++) {
+                    if (levelArrTwo[i][0] === point[0] && levelArrTwo[i][1] === point[1]) {
+                        setPoint(getRandomCoordinates());
+                    }
+                }
+                break;
+            case 'three':
+                for (let i = 0; i < levelArrThree.length; i++) {
+                    if (levelArrThree[i][0] === point[0] && levelArrThree[i][1] === point[1]) {
+                        setPoint(getRandomCoordinates());
+                    }
+                }
+                break;
+        }
+    }
+
     useEffect(() => {
         document.onkeydown = onKeyDown;
         checkIfOutBorders();
@@ -181,13 +226,18 @@ const Game = () => {
         changeLevelShowplaceState(levelPoints);
     })
 
+    useEffect(() => {
+        searchStartPositionEatSnake();
+        searchStartPositionEatBarrier(levelState);
+    }, [point])
+
     useInterval(() => moveSnake(), speed);
 
     return (
         <div>
             <div className={`${styleCSS.level}`}>
                 <div>
-                    <img className={'showplace'} src={searchImagesLevelShowplace(levelState)} alt={'image'}/>
+                    <img className={'showplace'} src={searchImagesLevelShowplace(levelState)} alt={''}/>
                     {levelPoints < 100 && <h6>Up to the next level {100 - levelPoints} points</h6>}
                     {levelPoints >= 100 && <h6>You have {levelPoints} points per level</h6>}
                 </div>
