@@ -3,12 +3,17 @@ import {useDispatch, useSelector} from "react-redux";
 import {changePageAction, changeSnakeColorAction} from "../actions/gameActions";
 import {bonusCard, homePage, levelArr} from "../utils/Constants";
 import BonusCard from "./BonusCard";
+import updateLocalStorage from "../services/updateLocalStorage";
 
 const Cabinet = () => {
     const dispatch = useDispatch();
     const [color, setColor] = useState('');
     const gamePoints = useSelector(state => state.gamePoints);
     const levelState = useSelector(state => state.level);
+    const nickname = useSelector(state => state.nickname);
+    const password = useSelector(state => state.password);
+    const email = useSelector(state => state.email);
+    const uid = useSelector(state => state.uid);
     const [tempLevel, setTempLevel] = useState(levelState);
 
     const temp = function searchBonusCard(value) {
@@ -44,15 +49,20 @@ const Cabinet = () => {
     const changeSnakeColor = (color) => {
         switch (color) {
             case 'black':
-                return dispatch(changeSnakeColorAction('black'));
+                dispatch(changeSnakeColorAction('black'));
+                break;
             case 'blue':
-                return dispatch(changeSnakeColorAction('blue'));
+                dispatch(changeSnakeColorAction('blue'));
+                break;
             case 'red':
-                return dispatch(changeSnakeColorAction('red'));
+                dispatch(changeSnakeColorAction('red'));
+                break;
             case 'yellow':
-                return dispatch(changeSnakeColorAction('yellow'));
+                dispatch(changeSnakeColorAction('yellow'));
+                break;
             case 'green':
-                return dispatch(changeSnakeColorAction('green'));
+                dispatch(changeSnakeColorAction('green'));
+                break;
         }
     }
 
@@ -77,17 +87,18 @@ const Cabinet = () => {
                 <div id="formChangeSnakeColor">
                     <select id="changeSnakeColor" defaultValue={'DEFAULT'} onChange={(event) =>
                         setColor(event.target.value)}>
-                        <option value="DEFAULT" disabled>Select snake color</option>
-                        <option value="green">Green</option>
-                        <option value="red">Red</option>
-                        <option value="blue">Blue</option>
-                        <option value="black">Black</option>
-                        <option value="yellow">Yellow</option>
+                        <option value='DEFAULT' disabled>Select snake color</option>
+                        <option value='green'>Green</option>
+                        <option value='red'>Red</option>
+                        <option value='blue'>Blue</option>
+                        <option value='black'>Black</option>
+                        <option value='yellow'>Yellow</option>
                     </select>
                     <button type={'submit'} className={'button button_small button_cabinet'}
-                            onClick={(event) => {
+                            onClick={() => {
                                 changeSnakeColor(color);
-                                dispatch(changePageAction(homePage))
+                                updateLocalStorage('', uid, nickname, gamePoints, levelState, color, email, password);
+                                dispatch(changePageAction(homePage));
                             }}
                     >Save
                     </button>

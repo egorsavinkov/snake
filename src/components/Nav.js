@@ -16,11 +16,7 @@ import {
     userAuthorizationActionPassword,
     userAuthorizationActionUid
 } from "../actions/gameActions";
-import {
-    authorizationPage,
-    cabinetPage,
-    homePage,
-    pageNavArr
+import {authorizationPage, cabinetPage, homePage, pageNavArr
 } from "../utils/Constants";
 import {updateFirebase} from "../services/updateFirebase";
 import updateLocalStorage from "../services/updateLocalStorage";
@@ -61,37 +57,38 @@ const Nav = () => {
         dispatch(changePageAction(homePage));
     }
 
-    const lSUpdate = async function (uid) {
-        try {
-            const ref = await fb.firestore().collection('players').doc(uid).get();
-            const user = {
-                email: ref.data().email,
-                password: ref.data().password,
-                nickname: ref.data().nickname,
-                uid: ref.data().uid,
-                level: ref.data().level,
-                snakeColor: ref.data().snakeColor,
-                gamePoints: ref.data().gamePoints
-            }
-            localStorage.setItem('player', JSON.stringify(user));
-            changeStoreUser(user.email, user.password, user.nickname,
-                user.uid, user.level, user.gamePoints, user.snakeColor);
-        } catch (error) {
-            console.log(error)
-        }
-    }
+    // const lSUpdate = async function (uid) {
+    //     try {
+    //         const ref = await fb.firestore().collection('players').doc(uid).get();
+    //         const user = {
+    //             email: ref.data().email,
+    //             password: ref.data().password,
+    //             nickname: ref.data().nickname,
+    //             uid: ref.data().uid,
+    //             level: ref.data().level,
+    //             snakeColor: ref.data().snakeColor,
+    //             gamePoints: ref.data().gamePoints
+    //         }
+    //         localStorage.setItem('player', JSON.stringify(user));
+    //         changeStoreUser(user.email, user.password, user.nickname,
+    //             user.uid, user.level, user.gamePoints, user.snakeColor);
+    //     } catch (error) {
+    //         console.log(error)
+    //     }
+    // }
 
-    const sessionUpdate = async function () {
+    async function sessionUpdate() {
         try {
             await fb.auth().onAuthStateChanged(function (player) {
                 if (player && !uid) {
-                    let gamer = JSON.parse(localStorage.getItem('player'));
-                    if (gamer) {
-                        changeStoreUser(gamer.email, gamer.password, gamer.nickname,
-                            gamer.uid, gamer.level, gamer.gamePoints, gamer.snakeColor);
-                    } else {
-                        lSUpdate(player.uid)
-                    }
+                    updateLocalStorage(player.uid, '', '', '', '', '', '', '')
+                        .then(gamer => changeStoreUser(gamer.email, gamer.password, gamer.nickname,
+                                gamer.uid, gamer.level, gamer.gamePoints, gamer.snakeColor));
+                    // if (gamer) {
+                    //
+                    // } else {
+                    //     lSUpdate(player.uid)
+                    // }
                 }
             });
         } catch (error) {
@@ -101,7 +98,7 @@ const Nav = () => {
 
     useEffect(() => {
         sessionUpdate();
-    });
+    }, []);
 
     return (
         <div className={'nav'}>
@@ -111,26 +108,36 @@ const Nav = () => {
                 <div className={'menu'}>
                     {temp.map((item, index) => (
                         <button className={'button button_small button_nav'}
-                                key={index} onClick={() => dispatch(changePageAction(item))}>{item}</button>
+                                key={index} onClick={() => {
+                            updateLocalStorage('', uid, nickname, gamePoints, level, snakeColor, email, password);
+                            dispatch(changePageAction(item));
+                            dispatch(changeLevelPointsAction(0));
+                        }}>{item}</button>
                     ))}
                 </div>
             </div>
             {!nickname && <button className={'button button_small button_nav'}
-                                  onClick={() => dispatch(changePageAction(authorizationPage))}>
+                                  onClick={() => {
+                                      dispatch(changeLevelPointsAction(0));
+                                      dispatch(changePageAction(authorizationPage))}}>
                 Sign in
             </button>}
             {nickname && <div>
                 <button className={'button button_small button_nav'}
-                        onClick={() => dispatch(changePageAction(cabinetPage))}>
+                        onClick={() => {
+                            updateLocalStorage('', uid, nickname, gamePoints, level, snakeColor, email, password);
+                            dispatch(changeLevelPointsAction(0));
+                            dispatch(changePageAction(cabinetPage));
+                        }}>
                     {nickname}
                 </button>
                 <button className={'button button_small button_nav'}
                         onClick={() => {
-                            updateLocalStorage(uid, nickname, gamePoints, level, snakeColor, email, password);
+                            updateLocalStorage('', uid, nickname, gamePoints, level, snakeColor, email, password);
                             updateFirebase(uid, nickname, gamePoints, level, snakeColor, email, password);
                             logOut();
                         }}>
-                    Sign out
+                    Save and exit
                 </button>
             </div>}
         </div>

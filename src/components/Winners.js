@@ -2,6 +2,8 @@ import React, {useEffect, useState} from 'react';
 import 'firebase/compat/firestore';
 import {useSelector} from "react-redux";
 import {updateFirebase} from "../services/updateFirebase";
+import {getAllPlayers} from "../services/getAllPlayers";
+import updateLocalStorage from "../services/updateLocalStorage";
 
 const Winners = () => {
     const [state, setState] = useState({gamers: []});
@@ -12,12 +14,15 @@ const Winners = () => {
     const gamePoints = useSelector(state => state.gamePoints);
     const level = useSelector(state => state.level);
     const snakeColor = useSelector(state => state.snakeColor);
+
     useEffect(() => {
-        updateFirebase(uid, nickname, gamePoints, level, snakeColor, email, password)
-            .then(winnersArr => {
-                localStorage.setItem('winners', JSON.stringify(winnersArr));
-                setState(state => ({...state, gamers: winnersArr}))
-            })
+        updateLocalStorage('', uid, nickname, gamePoints, level, snakeColor, email, password)
+        getAllPlayers().then(data => {
+            updateFirebase(uid, nickname, gamePoints, level, snakeColor, email, password, data.gamers)
+                .then(winnersArr => {
+                    setState(state => ({...state, gamers: winnersArr}));
+                })
+        }).catch(error => console.log(error));
     }, [])
 
     return (

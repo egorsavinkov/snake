@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {useSelector} from "react-redux";
 import Home from "./Home";
 import Play from "./Play";
@@ -15,44 +15,33 @@ import {
     authorizationPage, cabinetPage, gameOverPage, gamePage,
     homePage, nextLevelPage, playPage, registrationPage, tutorialPage, winnersPage
 } from "../utils/Constants";
-import updateLocalStorage from "../services/updateLocalStorage";
 
 const Main = () => {
-    const page = useSelector(state => state.page)
-    const gamePoints = useSelector(state => state.gamePoints);
-    const uid = useSelector(state => state.uid);
-    const nickname = useSelector(state => state.nickname);
-    const password = useSelector(state => state.password);
-    const email = useSelector(state => state.email);
-    const level = useSelector(state => state.level);
-    const snakeColor = useSelector(state => state.snakeColor);
+    const page = useSelector(state => state.page);
 
-    useEffect(() => {
-        updateLocalStorage(uid, nickname, gamePoints, level, snakeColor, email, password);
-    })
     switch (page) {
         case homePage:
-            return <div><Nav/><Home/></div>
+            return <div><Nav/><Home/></div>;
         case playPage:
-            return <div><Nav/><Play/></div>
+            return <div><Nav/><Play/></div>;
         case registrationPage:
-            return <div><Nav/><Registration/></div>
+            return <div><Nav/><Registration/></div>;
         case gameOverPage:
-            return <div><Nav/><GameOver/></div>
+            return <div><Nav/><GameOver/></div>;
         case cabinetPage:
-            return <div><Nav/><Cabinet/></div>
+            return <div><Nav/><Cabinet/></div>;
         case gamePage:
-            return <div><Nav/><Game/></div>
+            return <div><Nav/><Game/></div>;
         case nextLevelPage:
-            return <div><Nav/><Level/></div>
+            return <div><Nav/><Level/></div>;
         case authorizationPage:
-            return <div><Nav/><Authorization/></div>
+            return <div><Nav/><Authorization/></div>;
         case tutorialPage:
-            return <div><Nav/><Tutorial/></div>
+            return <div><Nav/><Tutorial/></div>;
         case winnersPage:
-            return <div><Nav/><Winners/></div>
+            return <div><Nav/><Winners/></div>;
         default:
-            return <div><Nav/><Home/></div>
+            return <div><Nav/><Home/></div>;
     }
 };
 

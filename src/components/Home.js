@@ -1,18 +1,13 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {changeLevelAction, changePageAction} from "../actions/gameActions";
 import {gamePage, playPage} from "../utils/Constants";
-import {getAllPlayers} from "../services/getAllPlayers";
 
 const Home = () => {
     const dispatch = useDispatch();
     const nickname = useSelector(state => state.nickname);
     const levelState = useSelector(state => state.level);
-    useEffect(() => {
-        // getAllPlayers().then(data => {
-        //     localStorage.setItem('winners', JSON.stringify(data.gamers));
-        // })
-    })
+
     return (
         <div className={'home'}>
             <div>

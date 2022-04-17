@@ -3,11 +3,17 @@ import {useDispatch, useSelector} from "react-redux";
 import {changeLevelPointsAction, changePageAction} from "../../actions/gameActions";
 import {gamePage, homePage} from "../../utils/Constants";
 import styleCSS from './level.module.css'
+import updateLocalStorage from "../../services/updateLocalStorage";
 
 const Level = () => {
     const levelPoints = useSelector(state => state.levelPoints);
     const levelState = useSelector(state => state.level);
     const uid = useSelector(state => state.uid);
+    const nickname = useSelector(state => state.nickname);
+    const password = useSelector(state => state.password);
+    const email = useSelector(state => state.email);
+    const gamePoints = useSelector(state => state.gamePoints);
+    const snakeColor = useSelector(state => state.snakeColor);
     const dispatch = useDispatch();
 
     return (
@@ -21,8 +27,9 @@ const Level = () => {
                 <div>
                     <button className={`button button_big ${styleCSS.button_level}`}
                             onClick={() => {
+                                updateLocalStorage('', uid, nickname, gamePoints, levelState, snakeColor, email, password);
                                 dispatch(changePageAction(gamePage))
-                                dispatch(changeLevelPointsAction(0))
+                                dispatch(changeLevelPointsAction(0));
                             }}>
                         Next level
                     </button>
@@ -36,8 +43,9 @@ const Level = () => {
                 <div>
                     <button className={`button button_big ${styleCSS.button_level}`}
                             onClick={() => {
+                                updateLocalStorage('', uid, nickname, gamePoints, levelState, snakeColor, email, password);
                                 dispatch(changePageAction(gamePage))
-                                dispatch(changeLevelPointsAction(0))
+                                dispatch(changeLevelPointsAction(0));
                             }}>
                         Next level
                     </button>
@@ -53,6 +61,7 @@ const Level = () => {
                 <div>
                     <button className={`button button_big ${styleCSS.button_level}`}
                             onClick={() => {
+                                updateLocalStorage('', uid, nickname, gamePoints, levelState, snakeColor, email, password);
                                 dispatch(changePageAction(homePage))
                                 dispatch(changeLevelPointsAction(0))
                             }}>
