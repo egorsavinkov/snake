@@ -241,7 +241,7 @@ const Game = () => {
                     {levelPoints < 100 && <h6>Up to the next level {100 - levelPoints} points</h6>}
                     {levelPoints >= 100 && <h6>You have {levelPoints} points per level</h6>}
                 </div>
-                {levelPoints >= 100 &&
+                {levelPoints >= 3 &&
                 <button className={`button button_small ${styleCSS.button_next_level}`}
                         onClick={() => {
                             dispatch(changePageAction(nextLevelPage));

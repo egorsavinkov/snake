@@ -1,33 +1,6 @@
-import {getAllPlayers} from "./getAllPlayers";
-import {fb} from "../config/FareBaseConfig";
 import {getUser} from "./getUser";
 
 export async function updateLocalStorage(uidFB, uid, nickname, gamePoints, level, snakeColor, email, password) {
-    // let winnersArr = JSON.parse(localStorage.getItem('winners'));
-    // if (winnersArr && uid) {
-    //     for (let i = 0; i < winnersArr.length; i++) {
-    //         if (winnersArr[i].uid === uid && winnersArr[i].gamePoints < gamePoints) {
-    //             winnersArr[i].gamePoints = gamePoints;
-    //         }
-    //         localStorage.setItem('winners', JSON.stringify(winnersArr));
-    //     }
-    // } else {
-    //     getAllPlayers().then(data => localStorage.setItem('winners', JSON.stringify(data.gamers)))
-    // }
-    // let gamer = JSON.parse(localStorage.getItem('player'));
-    // if (gamer && ((gamer.gamePoints < gamePoints || gamer.snakeColor !== snakeColor))) {
-    //     const userID = {
-    //         uid, nickname, gamePoints, level, snakeColor, email, password
-    //     }
-    //     localStorage.setItem('player', JSON.stringify(userID));
-    // }
-    // let winnersArr = JSON.parse(localStorage.getItem('winners'));
-
-
-
-
-
-
     let player = JSON.parse(localStorage.getItem('player'));
     if (!player && uidFB) {
         let gamerID = {}
@@ -38,7 +11,7 @@ export async function updateLocalStorage(uidFB, uid, nickname, gamePoints, level
         return gamerID;
     }
     if (player && uidFB) {
-            return player
+        return player
     }
     if (uid && player && (player.gamePoints < gamePoints || player.snakeColor !== snakeColor)) {
         const userID = {
@@ -61,5 +34,3 @@ export async function updateLocalStorage(uidFB, uid, nickname, gamePoints, level
 }
 
 export default updateLocalStorage;
-
-// есть юайди, нет юйди, есть куки, нет кук, авто, не авто

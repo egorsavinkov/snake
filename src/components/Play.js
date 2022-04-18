@@ -24,7 +24,8 @@ const Play = () => {
                                 if (levelState === 'finish') {
                                     dispatch(changeLevelAction('zero'))
                                 }
-                                dispatch(changePageAction(gamePage))}}>
+                                dispatch(changePageAction(gamePage))
+                            }}>
                         Play
                     </button>
                 </div>

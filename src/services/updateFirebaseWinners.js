@@ -2,22 +2,9 @@ import {fb} from "../config/FareBaseConfig";
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 
-export async function updateFirebase(uid, nickname, gamePoints, level, snakeColor, email, password, arrWinners) {
+export async function updateFirebaseWinners(uid, gamePoints, arrWinners) {
     try {
         let player = JSON.parse(localStorage.getItem('player'));
-        const ref = await fb.firestore().collection('players').doc('winners');
-        if (player && uid) {
-            await ref.set({gamers: [...tempArr]});
-            try {
-                const ref = await fb.firestore().collection('players').doc(uid)
-                const doc = await ref.get();
-                if (doc.exists) {
-                    await ref.set({uid: uid, nickname, gamePoints, level, snakeColor, email, password})
-                }
-            } catch (error) {
-                console.log(error)
-            }
-        }
         const tempArr = arrWinners;
         if (player && uid) {
             for (let i = 0; i < tempArr.length; i++) {
@@ -35,6 +22,10 @@ export async function updateFirebase(uid, nickname, gamePoints, level, snakeColo
                     tempArr[j] = temp;
                 }
             }
+        }
+        if (player && uid) {
+            const ref = await fb.firestore().collection('players').doc('winners');
+            await ref.set({gamers: [...tempArr]});
         }
         return tempArr;
     } catch (error) {

@@ -27,12 +27,12 @@ const Tutorial = () => {
         if (tutorialLocalStorage) {
             dispatch(changeTutorialAction(tutorialLocalStorage));
         } else {
-           getDescription().then(data => {
+            getDescription().then(data => {
                 localStorage.setItem('tutorial', JSON.stringify(data))
                 dispatch(changeTutorialAction(data))
             })
         }
-    },[])
+    }, [])
 
     return (
         <div className={'box_one'}>

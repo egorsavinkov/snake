@@ -10,7 +10,6 @@ import {
     userAuthorizationActionPassword, userAuthorizationActionUid
 } from "../actions/gameActions";
 import {homePage} from "../utils/Constants";
-import {getUser} from "../services/getUser";
 import updateLocalStorage from "../services/updateLocalStorage";
 
 const Authorization = () => {
@@ -29,16 +28,6 @@ const Authorization = () => {
             updateLocalStorage(uidPlayer, '', '', '', '', '', '', '')
                 .then(gamer => changeStoreUser(gamer.email, gamer.password, gamer.nickname,
                     gamer.uid, gamer.level, gamer.gamePoints, gamer.snakeColor));
-            // let player = JSON.parse(localStorage.getItem('player'));
-            // if (!player) {
-            //     const user = await getUser(uidPlayer);
-            //     localStorage.setItem('player', JSON.stringify(user));
-            //     changeStoreUser(user.email, user.password, user.nickname,
-            //         user.uid, user.level, user.gamePoints, user.snakeColor);
-            // } else {
-            //     changeStoreUser(player.email, player.password, player.nickname,
-            //         player.uid, player.level, player.gamePoints, player.snakeColor);
-            // }
         } catch (error) {
             console.log(error);
         }

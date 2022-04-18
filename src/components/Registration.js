@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {fb} from "../config/FareBaseConfig";
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
+import firebase from "firebase/compat/app";
 import {getAuth, updateProfile} from "firebase/auth";
 import {
     changePageAction,
@@ -21,7 +22,7 @@ const Registration = () => {
         password: ''
     });
 
-    async function addUser(uid, email, password) {
+    async function addFirebasePlayer(uid, email, password) {
         try {
             const ref = await fb.firestore().collection('players').doc(uid);
             await ref.set({
@@ -31,6 +32,24 @@ const Registration = () => {
                 gamePoints: 0,
                 snakeColor: 'black'
             })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    async function addFirebasePlayerWinners(uid, nickname, gamePoints) {
+        try {
+            const ref = await fb.firestore().collection('players').doc('winners');
+            const doc = await ref.get();
+            if (doc.exists) {
+                await ref.update({
+                    gamers: firebase.firestore.FieldValue.arrayUnion({
+                        uid, gamePoints, nickname
+                    })
+                })
+            } else {
+                await ref.set({gamers: [{uid, gamePoints, nickname}]})
+            }
         } catch (error) {
             console.log(error)
         }
@@ -50,7 +69,8 @@ const Registration = () => {
                 snakeColor: 'black'
             }
             localStorage.setItem('player', JSON.stringify(userID));
-            await addUser(uid, email, state.password);
+            await addFirebasePlayer(uid, email, state.password);
+            await addFirebasePlayerWinners(uid, state.nickname, 0);
             await fb.auth().signInWithEmailAndPassword(em, pass);
             dispatch(userAuthorizationActionEmail(email));
             dispatch(userAuthorizationActionPassword(state.password))
