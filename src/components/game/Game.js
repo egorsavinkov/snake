@@ -15,7 +15,6 @@ import {
     levelArr,
     levelArrOne, levelArrThree,
     levelArrTwo,
-    levelBackground,
     levelShowplace,
     nextLevelPage,
     RIGHT,
@@ -29,7 +28,7 @@ const Game = () => {
     const levelState = useSelector(state => state.level);
     const levelBarrier = useSelector(state => state.barrier[levelState]);
     const dispatch = useDispatch();
-    const [levelShowplaceState, setLevelShowplaceState] = useState(0)
+    const [levelShowplaceState, setLevelShowplaceState] = useState(0);
 
     const changeLevelShowplaceState = (points) => {
         switch (points) {
@@ -47,7 +46,7 @@ const Game = () => {
     const searchImagesLevelShowplace = (level) => {
         let lvl = levelArr.indexOf(level);
         let arr = levelShowplace[lvl];
-        return arr[levelShowplaceState]
+        return arr[levelShowplaceState];
     }
 
     const getRandomCoordinates = () => {
@@ -111,7 +110,7 @@ const Game = () => {
     const checkIfOutBorders = () => {
         let head = snakeDots[snakeDots.length - 1];
         if (head[0] >= 100 || head[1] >= 100 || head[0] < 0 || head[1] < 0) {
-            dispatch(changePageAction(gameOverPage))
+            dispatch(changePageAction(gameOverPage));
         }
     }
 
@@ -121,7 +120,7 @@ const Game = () => {
         snake.pop();
         snake.forEach(dot => {
             if (head[0] === dot[0] && head[1] === dot[1]) {
-                dispatch(changePageAction(gameOverPage))
+                dispatch(changePageAction(gameOverPage));
             }
         })
     }
@@ -131,7 +130,7 @@ const Game = () => {
         let head = snake[snake.length - 1];
         levelBarrier.forEach(dotBarrier => {
             if (head[0] === dotBarrier[0] && head[1] === dotBarrier[1]) {
-                dispatch(changePageAction(gameOverPage))
+                dispatch(changePageAction(gameOverPage));
             }
         })
     }
@@ -142,8 +141,8 @@ const Game = () => {
         if (head[0] === p[0] && head[1] === p[1]) {
             setPoint(getRandomCoordinates());
             enlargeSnake();
-            dispatch(changeLevelPointsAction(levelPoints + 1))
-            dispatch(changeGamePointsAction(gamePoints + 1))
+            dispatch(changeLevelPointsAction(levelPoints + 1));
+            dispatch(changeGamePointsAction(gamePoints + 1));
             increaseSpeed();
         }
     }
@@ -179,7 +178,7 @@ const Game = () => {
 
     const searchNextLevel = (currentLevel) => {
         let lvl = levelArr.indexOf(currentLevel);
-        return levelArr[lvl + 1]
+        return levelArr[lvl + 1];
     }
 
     const searchStartPositionEatSnake = () => {
@@ -251,7 +250,6 @@ const Game = () => {
                     Next level
                 </button>}
             </div>
-            {/*<div className={`${levelBackground[levelState]}`}>*/}
             <div className={styleCSS.game_area}>
                 <Snake snakeDots={snakeDots}/>
                 <Point dot={point}/>

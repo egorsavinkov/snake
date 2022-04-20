@@ -23,27 +23,27 @@ const Cabinet = () => {
 
     const previousBonusCard = (value) => {
         if (value === 'zero') {
-            return
+            return;
         }
         let lvlTemp = levelArr.indexOf(value);
         if (lvlTemp <= 1) {
-            return
+            return;
         }
         let lvl = levelArr.indexOf(value);
-        setTempLevel(levelArr[lvl - 1])
+        setTempLevel(levelArr[lvl - 1]);
     }
 
     const nextBonusCard = (value) => {
         if (value === 'finish') {
-            return
+            return;
         }
         let lvlTemp = levelArr.indexOf(value);
         let lvlState = levelArr.indexOf(levelState);
         if (lvlTemp >= lvlState) {
-            return
+            return;
         }
         let lvl = levelArr.indexOf(value);
-        setTempLevel(levelArr[lvl + 1])
+        setTempLevel(levelArr[lvl + 1]);
     }
 
     const changeSnakeColor = (color) => {

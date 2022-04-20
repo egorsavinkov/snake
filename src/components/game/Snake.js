@@ -4,6 +4,7 @@ import {useSelector} from "react-redux";
 
 const Snake = (props) => {
     const snakeColorState = useSelector(state => state.snakeColor);
+
     return (
         <div>
             {props.snakeDots.map((dot, index) => {

@@ -23,7 +23,7 @@ const Winners = () => {
                     .then(data => updateFirebaseWinners(uid, gamePoints, data.gamers)
                             .then(winnersArr => setState(state => ({...state, gamers: winnersArr})))
                         .catch(error => console.log(error))))
-    }, [])
+    }, []);
 
     return (
         <div className={'box_one'}>

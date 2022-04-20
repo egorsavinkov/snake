@@ -30,11 +30,11 @@ export async function updateFirebaseWinners(uid, gamePoints, arrWinners) {
                     await ref.set({gamers: [...arrWinners]});
                 }
             } catch (error) {
-                console.log(error)
+                console.log(error);
             }
         }
         return arrWinners;
     } catch (error) {
-        console.log(error)
+        console.log(error);
     }
 }

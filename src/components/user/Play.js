@@ -4,7 +4,7 @@ import {changeLevelAction, changePageAction} from "../../actions/gameActions";
 import {gamePage, registrationPage} from "../../utils/Constants";
 
 const Play = () => {
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
     const levelState = useSelector(state => state.level);
 
     return (

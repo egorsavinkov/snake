@@ -33,7 +33,7 @@ const Registration = () => {
                 snakeColor: 'black'
             })
         } catch (error) {
-            console.log(error)
+            console.log(error);
         }
     }
 
@@ -51,7 +51,7 @@ const Registration = () => {
                 await ref.set({gamers: [{uid, gamePoints, nickname}]})
             }
         } catch (error) {
-            console.log(error)
+            console.log(error);
         }
     }
 
@@ -73,12 +73,12 @@ const Registration = () => {
             await addFirebasePlayerWinners(uid, state.nickname, 0);
             await fb.auth().signInWithEmailAndPassword(em, pass);
             dispatch(userAuthorizationActionEmail(email));
-            dispatch(userAuthorizationActionPassword(state.password))
+            dispatch(userAuthorizationActionPassword(state.password));
             dispatch(userAuthorizationActionNickname(state.nickname));
             dispatch(userAuthorizationActionUid(uid));
             dispatch(userAuthorizationActionGamePoints(0));
             dispatch(userAuthorizationActionLevel('zero'));
-            dispatch(changeSnakeColorAction('black'))
+            dispatch(changeSnakeColorAction('black'));
             dispatch(changePageAction(homePage));
         } catch (error) {
             console.log(error);

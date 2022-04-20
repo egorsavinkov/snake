@@ -21,4 +21,4 @@ const initialState = {
     snakeColor: 'black'
 }
 
-export const store = createStore(gameReducer, initialState)
+export const store = createStore(gameReducer, initialState);

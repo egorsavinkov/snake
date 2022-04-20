@@ -16,6 +16,6 @@ export async function getUser(uidPlayer) {
             gamePoints: doc.data().gamePoints
         }
     } catch (error) {
-        console.log(error)
+        console.log(error);
     }
 }

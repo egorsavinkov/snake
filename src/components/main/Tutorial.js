@@ -32,7 +32,7 @@ const Tutorial = () => {
                 dispatch(changeTutorialAction(data))
             })
         }
-    }, [])
+    }, []);
 
     return (
         <div className={'box_one'}>

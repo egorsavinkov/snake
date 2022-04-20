@@ -60,8 +60,7 @@ const Authorization = () => {
                         <input type={'email'} className={'a_r_input'} id={'email'}
                                placeholder={'Email'} value={state.email}
                                onChange={event => setState(state =>
-                                   ({...state, email: event.target.value}))}
-                        />
+                                   ({...state, email: event.target.value}))}/>
                     </div>
                     <div>
                         <input type={'password'} className={'a_r_input'} id={'password'}

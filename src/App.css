@@ -58,6 +58,15 @@ body {
     background-repeat: no-repeat;
 }
 
+.game_background {
+    background-image: url('/src/images/b5.jpg');
+    background-size: 100%;
+    background-position: center bottom;
+    width: 100vw;
+    height: 100vh;
+    background-repeat: no-repeat;
+}
+
 .nav {
     padding-top: 50px;
     display: flex;
@@ -257,7 +266,7 @@ td {
     text-align: center;
     display: flex;
     align-items: center;
-    justify-content: space-around;
+    justify-content: center;
 }
 
 .cardImage {
@@ -265,6 +274,7 @@ td {
 }
 
 .cardText {
+    margin-left: 30px;
     text-align: left;
     max-width: 600px;
     max-height: 300px;

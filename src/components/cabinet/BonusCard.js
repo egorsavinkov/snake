@@ -1,6 +1,7 @@
 import React from 'react';
 
 const BonusCard = (props) => {
+
     return (
         <div id="card">
             <img className={'cardImage'} src={props.card[2]} alt={'showplace'}/>
