@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {changePageAction, changeSnakeColorAction} from "../actions/gameActions";
-import {bonusCard, homePage, levelArr} from "../utils/Constants";
+import {black, blue, bonusCard, homePage, indigo, lemon, levelArr, orange, pink, violet} from "../utils/Constants";
 import BonusCard from "./BonusCard";
 import updateLocalStorage from "../services/updateLocalStorage";
 
@@ -48,38 +48,44 @@ const Cabinet = () => {
 
     const changeSnakeColor = (color) => {
         switch (color) {
-            case 'black':
+            case black:
                 dispatch(changeSnakeColorAction('black'));
                 break;
-            case 'blue':
+            case indigo:
+                dispatch(changeSnakeColorAction('indigo'));
+                break;
+            case blue:
                 dispatch(changeSnakeColorAction('blue'));
                 break;
-            case 'red':
-                dispatch(changeSnakeColorAction('red'));
+            case pink:
+                dispatch(changeSnakeColorAction('pink'));
                 break;
-            case 'yellow':
-                dispatch(changeSnakeColorAction('yellow'));
+            case violet:
+                dispatch(changeSnakeColorAction('violet'));
                 break;
-            case 'green':
-                dispatch(changeSnakeColorAction('green'));
+            case orange:
+                dispatch(changeSnakeColorAction('orange'));
+                break;
+            case lemon:
+                dispatch(changeSnakeColorAction('lemon'));
                 break;
         }
     }
 
     return (
-        <div className={'box_one'}>
+        <div className={'box_one_cabinet'}>
             <div className={'box_two'}>
                 <div id="bonusCard">
-                    <h2>Bonus card</h2>
+                    <h2 id="bonusCard_h2">Bonus card</h2>
                     <div className={'bonusCard'}>
                         <button className={'button button_small'}
                                 onClick={() => previousBonusCard(tempLevel)}
-                        >Previous
+                        >{'<'}
                         </button>
                         <BonusCard card={temp(tempLevel)}/>
                         <button className={'button button_small'}
                                 onClick={() => nextBonusCard(tempLevel)}
-                        >Next
+                        >{`>`}
                         </button>
                     </div>
                 </div>
@@ -88,13 +94,15 @@ const Cabinet = () => {
                     <select id="changeSnakeColor" defaultValue={'DEFAULT'} onChange={(event) =>
                         setColor(event.target.value)}>
                         <option value='DEFAULT' disabled>Select snake color</option>
-                        <option value='green'>Green</option>
-                        <option value='red'>Red</option>
-                        <option value='blue'>Blue</option>
+                        <option value='orange'>Epicurean Orange</option>
+                        <option value='violet'>Dark Royalty</option>
+                        <option value='pink'>Brusque Pink</option>
                         <option value='black'>Black</option>
-                        <option value='yellow'>Yellow</option>
+                        <option value='blue'>Blue Elemental</option>
+                        <option value='indigo'>Electric Indigo</option>
+                        <option value='lemon'>Lemon Chrome</option>
                     </select>
-                    <button type={'submit'} className={'button button_small button_cabinet'}
+                    <button type={'submit'} className={'button button_big button_cabinet'}
                             onClick={() => {
                                 changeSnakeColor(color);
                                 updateLocalStorage('', uid, nickname, gamePoints, levelState, color, email, password);

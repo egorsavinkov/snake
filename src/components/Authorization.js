@@ -57,14 +57,14 @@ const Authorization = () => {
                 {state.email &&
                 <div>
                     <div>
-                        <input type={'email'} className={'input_form'} id={'email'}
+                        <input type={'email'} className={'a_r_input'} id={'email'}
                                placeholder={'Email'} value={state.email}
                                onChange={event => setState(state =>
                                    ({...state, email: event.target.value}))}
                         />
                     </div>
                     <div>
-                        <input type={'password'} className={'input_form'} id={'password'}
+                        <input type={'password'} className={'a_r_input'} id={'password'}
                                placeholder={'Password'} value={state.password}
                                onChange={event => setState(state =>
                                    ({...state, password: event.target.value}))}/>
@@ -78,13 +78,13 @@ const Authorization = () => {
                 {!state.email &&
                 <div>
                     <div>
-                        <input type={'email'} className={'input_form'} id={'email'}
+                        <input type={'email'} className={'a_r_input'} id={'email'}
                                placeholder={'Email'} value={state.email}
                                onChange={event => setState(state =>
                                    ({...state, email: event.target.value}))}/>
                     </div>
                     <div>
-                        <input type={'password'} className={'input_form'} id={'password'}
+                        <input type={'password'} className={'a_r_input'} id={'password'}
                                placeholder={'Password'} value={state.password}
                                onChange={event => setState(state =>
                                    ({...state, password: event.target.value}))}/>

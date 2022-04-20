@@ -20,8 +20,8 @@ const Level = () => {
         <div>
             {levelState !== 'finish' && uid && <div className={'box_one'}>
                 <div className={'box_two'}>
-                    <h1>Level passed!</h1>
-                    <h3>A new bonus card has appeared in your personal account!<br/>Your result {levelPoints} points.
+                    <h1 className={'gameOver_level_h1'}>Level passed</h1>
+                    <h3 className={'gameOver_level_h3'}>A new bonus card has appeared in your personal account!<br/>Your result {levelPoints} points.
                     </h3>
                 </div>
                 <div>
@@ -37,8 +37,8 @@ const Level = () => {
             </div>}
             {levelState !== 'finish' && !uid && <div className={'box_one'}>
                 <div className={'box_two'}>
-                    <h1>Level passed!</h1>
-                    <h3>Your result {levelPoints} points.</h3>
+                    <h1 className={'gameOver_level_h1'}>Level passed</h1>
+                    <h3 className={'gameOver_level_h3'}>Your result {levelPoints} points!</h3>
                 </div>
                 <div>
                     <button className={`button button_big ${styleCSS.button_level}`}
@@ -53,8 +53,8 @@ const Level = () => {
             </div>}
             {levelState === 'finish' && <div className={'box_one'}>
                 <div className={'box_two'}>
-                    <h1>The game is over!</h1>
-                    <h3>The next levels are under development. <br/>The game will start from the initial difficulty
+                    <h1 className={'gameOver_level_h1'}>The game is over!</h1>
+                    <h3 className={'gameOver_level_h3'}>The next levels are under development. <br/>The game will start from the initial difficulty
                         level.
                         <br/>Your result {levelPoints} points!</h3>
                 </div>

@@ -1,8 +1,8 @@
 import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {changeLevelPointsAction, changePageAction} from "../../actions/gameActions";
-import {gamePage} from "../../utils/Constants";
-import updateLocalStorage from "../../services/updateLocalStorage";
+import {changeLevelPointsAction, changePageAction} from "../actions/gameActions";
+import {gamePage} from "../utils/Constants";
+import updateLocalStorage from "../services/updateLocalStorage";
 
 const GameOver = () => {
     const levelPoints = useSelector(state => state.levelPoints);
@@ -19,8 +19,8 @@ const GameOver = () => {
         <div>
             <div className={'box_one'}>
                 <div className={'box_two'}>
-                    <h1>Game Over</h1>
-                    <h3>Your result {levelPoints} points</h3>
+                    <h1 className={'gameOver_level_h1'}>Game Over</h1>
+                    <h3 className={'gameOver_level_h3'}>Your result {levelPoints} points!</h3>
                 </div>
                 <div>
                     <button className={'button button_big button_finish'}

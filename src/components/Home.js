@@ -11,8 +11,8 @@ const Home = () => {
     return (
         <div className={'home'}>
             <div>
-                <h1>Hello!</h1>
-                <h2>Click play to start the game</h2>
+                <h1 id={'hello'}>Hello!</h1>
+                <h2 id={'title_home'}>Click play to start the game</h2>
             </div>
             <div className={'home_group'}>
                 {!nickname && <button type={'submit'} className={'button button_big'}

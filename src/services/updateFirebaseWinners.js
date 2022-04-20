@@ -5,29 +5,35 @@ import 'firebase/compat/firestore';
 export async function updateFirebaseWinners(uid, gamePoints, arrWinners) {
     try {
         let player = JSON.parse(localStorage.getItem('player'));
-        const tempArr = arrWinners;
         if (player && uid) {
-            for (let i = 0; i < tempArr.length; i++) {
-                if (tempArr[i].uid === player.uid &&
-                    tempArr[i].gamePoints < player.gamePoints) {
-                    tempArr[i].gamePoints = player.gamePoints;
+            for (let i = 0; i < arrWinners.length; i++) {
+                if (arrWinners[i].uid === player.uid &&
+                    arrWinners[i].gamePoints < player.gamePoints) {
+                    arrWinners[i].gamePoints = player.gamePoints;
                 }
             }
         }
-        for (let i = 0; i < tempArr.length; i++) {
-            for (let j = 1; j < tempArr.length; j++) {
-                if (tempArr[i].gamePoints < tempArr[j].gamePoints) {
-                    const temp = tempArr[i];
-                    tempArr[i] = tempArr[j];
-                    tempArr[j] = temp;
+        arrWinners.sort(function cumPair(one, two) {
+            if (one.gamePoints > two.gamePoints) {
+                return -1;
+            }
+            if (one.gamePoints < two.gamePoints) {
+                return 1;
+            }
+            return 0;
+        })
+        if (player && uid) {
+            try {
+                const ref = await fb.firestore().collection('players').doc('winners');
+                const doc = await ref.get();
+                if (doc.exists) {
+                    await ref.set({gamers: [...arrWinners]});
                 }
+            } catch (error) {
+                console.log(error)
             }
         }
-        if (player && uid) {
-            const ref = await fb.firestore().collection('players').doc('winners');
-            await ref.set({gamers: [...tempArr]});
-        }
-        return tempArr;
+        return arrWinners;
     } catch (error) {
         console.log(error)
     }

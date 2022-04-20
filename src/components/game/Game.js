@@ -33,13 +33,13 @@ const Game = () => {
 
     const changeLevelShowplaceState = (points) => {
         switch (points) {
-            case 25:
-                return setLevelShowplaceState(1);
             case 50:
-                return setLevelShowplaceState(2);
-            case 75:
-                return setLevelShowplaceState(3);
+                return setLevelShowplaceState(1);
             case 100:
+                return setLevelShowplaceState(2);
+            case 150:
+                return setLevelShowplaceState(3);
+            case 200:
                 return setLevelShowplaceState(4);
         }
     }
@@ -234,14 +234,14 @@ const Game = () => {
     useInterval(() => moveSnake(), speed);
 
     return (
-        <div>
+        <div id={`${styleCSS.game}`}>
             <div className={`${styleCSS.level}`}>
                 <div>
-                    <img className={'showplace'} src={searchImagesLevelShowplace(levelState)} alt={''}/>
-                    {levelPoints < 100 && <h6>Up to the next level {100 - levelPoints} points</h6>}
-                    {levelPoints >= 100 && <h6>You have {levelPoints} points per level</h6>}
+                    <img className={'showplace_img'} src={searchImagesLevelShowplace(levelState)} alt={''}/>
+                    {levelPoints < 200 && <h6 className={'showplace_h6'}>Up to the next level {200 - levelPoints} points</h6>}
+                    {levelPoints >= 200 && <h6 className={'showplace_h6'}>You have {levelPoints} points per level</h6>}
                 </div>
-                {levelPoints >= 3 &&
+                {levelPoints >= 200 &&
                 <button className={`button button_small ${styleCSS.button_next_level}`}
                         onClick={() => {
                             dispatch(changePageAction(nextLevelPage));

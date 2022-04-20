@@ -11,7 +11,16 @@ export async function updateLocalStorage(uidFB, uid, nickname, gamePoints, level
         return gamerID;
     }
     if (player && uidFB) {
-        return player
+        if (player.uid === uidFB) {
+            return player
+        } else {
+            let gamerID = {}
+            await getUser(uidFB).then(gamer => {
+                gamerID = gamer
+                localStorage.setItem('player', JSON.stringify(gamerID))
+            });
+            return gamerID;
+        }
     }
     if (uid && player && (player.gamePoints < gamePoints || player.snakeColor !== snakeColor)) {
         const userID = {
@@ -29,8 +38,6 @@ export async function updateLocalStorage(uidFB, uid, nickname, gamePoints, level
             }
         });
     }
-
-
 }
 
 export default updateLocalStorage;

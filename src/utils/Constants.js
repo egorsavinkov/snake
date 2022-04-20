@@ -1,4 +1,4 @@
-import bc from "../images/bc.png";
+import bc from "../images/bc.jpg";
 import bc0 from "../images/bc0.jpg";
 import bc1 from "../images/bc1.jpg";
 import bc2 from "../images/bc2.jpg";
@@ -46,7 +46,6 @@ export const CHANGE_LEVEL_POINTS = 'CHANGE_LEVEL_POINTS';
 export const CHANGE_GAME_POINTS = 'CHANGE_GAME_POINTS';
 export const CHANGE_LEVEL = 'CHANGE_LEVEL';
 export const CHANGE_TUTORIAL = 'CHANGE_TUTORIAL';
-export const CHANGE_STATE_START = 'CHANGE_STATE_START';
 export const USER_REGISTRATION_NICKNAME = 'USER_REGISTRATION_NICKNAME';
 export const USER_REGISTRATION_EMAIL = 'USER_REGISTRATION_EMAIL';
 export const USER_REGISTRATION_UID = 'USER_REGISTRATION_UID';
@@ -93,11 +92,13 @@ export const levelArrThree = [
     [12, 90], [14, 90], [16, 90], [18, 90], [20, 90], [22, 90], [24, 90], [26, 90], [28, 90], [30, 90], [32, 90], [34, 90], [36, 90], [38, 90], [40, 90], [42, 90], [44, 90], [46, 90], [48, 90], [50, 90],
     [52, 90], [54, 90], [56, 90], [58, 90], [60, 90], [62, 90], [64, 90], [76, 90], [78, 90], [80, 90], [82, 90], [84, 90], [86, 90], [88, 90]
 ];
-export const black = `styleCSS.black`;
-export const blue = `blue`;
-export const red = `red`;
-export const yellow = `yellow`;
-export const green = `green`;
+export const black = `black`;
+export const pink = `pink`;
+export const blue = 'blue';
+export const lemon = 'lemon';
+export const indigo = 'indigo';
+export const violet = `violet`;
+export const orange = `orange`;
 export const levelArr = ['zero', 'one', 'two', 'three', 'finish'];
 export const bonusCard = [
     ['Bonus card', 'Earn points, increase the difficulty of the game and unlock ' +
@@ -124,4 +125,15 @@ export const levelShowplace = [
     [r20, r225, r250, r275, r2100],
     [r30, r325, r350, r375, r3100],
     [r40, r425, r450, r475, r4100]
-]
+];
+
+export const pageBackground = {
+    Home: `home_background`,
+    Play: `play_background`,
+    Tutorial: `tutorial_background`,
+    Winners: `winners_background`,
+    Level: `level_background`,
+    GameOver: `gameOver_background`,
+    Registration: `ar_background`,
+    Authorization: `ar_background`
+}

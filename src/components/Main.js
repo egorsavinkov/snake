@@ -9,7 +9,7 @@ import Winners from "./Winners";
 import Tutorial from "./Tutorial";
 import Nav from "./Nav";
 import Cabinet from "./Cabinet";
-import GameOver from "./game/GameOver";
+import GameOver from "./GameOver";
 import Level from "./level/Level";
 import {
     authorizationPage, cabinetPage, gameOverPage, gamePage,

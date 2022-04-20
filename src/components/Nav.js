@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import {fb} from "../config/FareBaseConfig";
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
-import logo from '../images/logo.svg';
+import logo from '../images/logo.jpg';
 import {useDispatch, useSelector} from "react-redux";
 import {
     changeGamePointsAction,
@@ -80,37 +80,37 @@ const Nav = () => {
 
     return (
         <div className={'nav'}>
-            <div className={'menuAndLogo'}>
-                <img className={'logo'} src={logo} alt={'logo'}/>
-                <h3>naky Tourister</h3>
-                <div className={'menu'}>
-                    {temp.map((item, index) => (
-                        <button className={'button button_small button_nav'}
-                                key={index} onClick={() => {
-                            updateLocalStorage('', uid, nickname, gamePoints, level, snakeColor, email, password);
-                            dispatch(changePageAction(item));
-                            dispatch(changeLevelPointsAction(0));
-                        }}>{item}</button>
-                    ))}
-                </div>
+            <div className={'logo'}>
+                <img id={'logo'} src={logo} alt={'logo'}/>
             </div>
-            {!nickname && <button className={'button button_small button_nav'}
-                                  onClick={() => {
-                                      dispatch(changeLevelPointsAction(0));
-                                      dispatch(changePageAction(authorizationPage))
-                                  }}>
-                Sign in
-            </button>}
-            {nickname && <div>
-                <button className={'button button_small button_nav'}
-                        onClick={() => {
-                            updateLocalStorage('', uid, nickname, gamePoints, level, snakeColor, email, password);
-                            dispatch(changeLevelPointsAction(0));
-                            dispatch(changePageAction(cabinetPage));
-                        }}>
-                    {nickname}
-                </button>
-                <button className={'button button_small button_nav'}
+            <div className={'menu'}>
+                {temp.map((item, index) => (
+                    <li className={'button button_menu button_nav'}
+                        key={index} onClick={() => {
+                        updateLocalStorage('', uid, nickname, gamePoints, level, snakeColor, email, password);
+                        dispatch(changePageAction(item));
+                        dispatch(changeLevelPointsAction(0));
+                    }}>{item}</li>
+                ))}
+            </div>
+            <div className={'login_exit'}>
+                {!nickname && <button className={'button button_big button_nav'}
+                                      onClick={() => {
+                                          dispatch(changeLevelPointsAction(0));
+                                          dispatch(changePageAction(authorizationPage))
+                                      }}>
+                    Sign in
+                </button>}
+                {nickname && <div>
+                    <button className={'button button_big button_nav'}
+                            onClick={() => {
+                                updateLocalStorage('', uid, nickname, gamePoints, level, snakeColor, email, password);
+                                dispatch(changeLevelPointsAction(0));
+                                dispatch(changePageAction(cabinetPage));
+                            }}>
+                        {nickname}
+                    </button>
+                    <li className={'button button_menu button_nav li_login_exit'}
                         onClick={() => {
                             updateLocalStorage('', uid, nickname, gamePoints, level, snakeColor, email, password);
                             updateFirebasePlayer(uid, nickname, gamePoints, level, snakeColor, email, password);
@@ -119,9 +119,10 @@ const Nav = () => {
                             });
                             logOut();
                         }}>
-                    Save and exit
-                </button>
-            </div>}
+                        Save & exit
+                    </li>
+                </div>}
+            </div>
         </div>
     );
 }
