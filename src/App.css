@@ -192,7 +192,7 @@ td {
 
 .button_big {
     background: #0038B8;
-    border: 1px solid #000000;
+    border: 0 solid #FFFFFF;
     box-sizing: border-box;
     border-radius: 30px;
     width: 206px;
@@ -404,7 +404,7 @@ table thead tr th {
 
 #scroll::-webkit-scrollbar-thumb {
     border-radius: 10px;
-    background: linear-gradient(180deg, #00c6fb, #005bea);
+    background: linear-gradient(180deg, #0038B8, #0038B8);
 }
 
 .gameOver_level_h1 {
