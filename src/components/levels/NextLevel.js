@@ -5,7 +5,7 @@ import {gamePage, homePage} from "../../utils/Constants";
 import styleCSS from './level.module.css'
 import updateLocalStorage from "../../services/updateLocalStorage";
 
-const Level = () => {
+const NextLevel = () => {
     const levelPoints = useSelector(state => state.levelPoints);
     const levelState = useSelector(state => state.level);
     const uid = useSelector(state => state.uid);
@@ -73,4 +73,4 @@ const Level = () => {
     );
 };
 
-export default Level;
+export default NextLevel;

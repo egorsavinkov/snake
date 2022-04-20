@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {fb} from "../config/FareBaseConfig";
+import {fb} from "../../config/FareBaseConfig";
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 import {useDispatch} from "react-redux";
@@ -8,9 +8,9 @@ import {
     userAuthorizationActionEmail, userAuthorizationActionGamePoints, userAuthorizationActionLevel,
     userAuthorizationActionNickname,
     userAuthorizationActionPassword, userAuthorizationActionUid
-} from "../actions/gameActions";
-import {homePage} from "../utils/Constants";
-import updateLocalStorage from "../services/updateLocalStorage";
+} from "../../actions/gameActions";
+import {homePage} from "../../utils/Constants";
+import updateLocalStorage from "../../services/updateLocalStorage";
 
 const Authorization = () => {
     const dispatch = useDispatch();

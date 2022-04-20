@@ -22,7 +22,7 @@ body {
     background-repeat: no-repeat;
 }
 
-.tutorial_background {
+.winners_background {
     background-image: url('/src/images/b3.jpg');
     background-size: 100%;
     background-position: center bottom;
@@ -31,7 +31,7 @@ body {
     background-repeat: no-repeat;
 }
 
-.winners_background {
+.level_background {
     background-image: url('/src/images/b4.jpg');
     background-size: 100%;
     background-position: center bottom;
@@ -40,17 +40,8 @@ body {
     background-repeat: no-repeat;
 }
 
-.level_background {
-    background-image: url('/src/images/b5.jpg');
-    background-size: 100%;
-    background-position: center bottom;
-    width: 100vw;
-    height: 100vh;
-    background-repeat: no-repeat;
-}
-
 .gameOver_background {
-    background-image: url('/src/images/b5.jpg');
+    background-image: url('/src/images/b4.jpg');
     background-size: 100%;
     background-position: center bottom;
     width: 100vw;
@@ -59,7 +50,7 @@ body {
 }
 
 .ar_background {
-    background-image: url('/src/images/b5.jpg');
+    background-image: url('/src/images/b4.jpg');
     background-size: 100%;
     background-position: center bottom;
     width: 100vw;
@@ -135,7 +126,7 @@ td {
 }
 
 .box_one_cabinet {
-    margin-top: 100px;
+    margin-top: 80px;
     margin-right: 25px;
     margin-left: 25px;
     display: flex;
@@ -220,6 +211,11 @@ td {
     width: 128px;
 }
 
+.showplace_min {
+    flex-direction: column;
+    align-items: center;
+}
+
 .showplace_h6 {
     font-style: normal;
     font-weight: 600;
@@ -227,6 +223,7 @@ td {
     line-height: 96.72%;
     text-align: center;
     color: #000000;
+    margin-top: 20px;
 }
 
 #formChangeSnakeColor {
@@ -362,7 +359,14 @@ table thead tr th {
     font-size: 64px;
     line-height: 145.08%;
     color: #000000;
+}
 
+#tutorial_h1 {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 64px;
+    line-height: 145.08%;
+    color: #000000;
 }
 
 .winners_h4 {

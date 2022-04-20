@@ -1,5 +1,5 @@
 import './App.css';
-import Main from "./components/Main";
+import Main from "./components/main/Main";
 import {useSelector} from "react-redux";
 import {pageBackground} from "./utils/Constants";
 

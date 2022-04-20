@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {fb} from "../config/FareBaseConfig";
+import {fb} from "../../config/FareBaseConfig";
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 import firebase from "firebase/compat/app";
@@ -10,8 +10,8 @@ import {
     userAuthorizationActionEmail, userAuthorizationActionGamePoints, userAuthorizationActionLevel,
     userAuthorizationActionNickname,
     userAuthorizationActionPassword, userAuthorizationActionUid
-} from "../actions/gameActions";
-import {homePage} from "../utils/Constants";
+} from "../../actions/gameActions";
+import {homePage} from "../../utils/Constants";
 import {useDispatch} from "react-redux";
 
 const Registration = () => {

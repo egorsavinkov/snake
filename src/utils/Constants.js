@@ -114,12 +114,12 @@ export const bonusCard = [
     'Noah once built an ark, and Perseus freed Andromeda, the Crusaders, and then Napoleon, also managed to ' +
     'visit here.', bc3]
 ];
-export const levelBackground = {
-    zero: `${styleCSS.game_area_f1}`,
-    one: `${styleCSS.game_area_f2}`,
-    two: `${styleCSS.game_area_f3}`,
-    three: `${styleCSS.game_area_f4}`
-}
+// export const levelBackground = {
+//     zero: `${styleCSS.game_area_f1}`,
+//     one: `${styleCSS.game_area_f2}`,
+//     two: `${styleCSS.game_area_f3}`,
+//     three: `${styleCSS.game_area_f4}`
+// }
 export const levelShowplace = [
     [r10, r125, r150, r175, r1100],
     [r20, r225, r250, r275, r2100],
@@ -130,7 +130,6 @@ export const levelShowplace = [
 export const pageBackground = {
     Home: `home_background`,
     Play: `play_background`,
-    Tutorial: `tutorial_background`,
     Winners: `winners_background`,
     Level: `level_background`,
     GameOver: `gameOver_background`,

@@ -1,20 +1,20 @@
 import React from 'react';
 import {useSelector} from "react-redux";
 import Home from "./Home";
-import Play from "./Play";
-import Game from "./game/Game";
-import Authorization from "./Authorization";
-import Registration from "./Registration";
+import Play from "../user/Play";
+import Game from "../game/Game";
+import Authorization from "../user/Authorization";
+import Registration from "../user/Registration";
 import Winners from "./Winners";
 import Tutorial from "./Tutorial";
 import Nav from "./Nav";
-import Cabinet from "./Cabinet";
-import GameOver from "./GameOver";
-import Level from "./level/Level";
+import Cabinet from "../cabinet/Cabinet";
+import GameOver from "../levels/GameOver";
+import NextLevel from "../levels/NextLevel";
 import {
     authorizationPage, cabinetPage, gameOverPage, gamePage,
     homePage, nextLevelPage, playPage, registrationPage, tutorialPage, winnersPage
-} from "../utils/Constants";
+} from "../../utils/Constants";
 
 const Main = () => {
     const page = useSelector(state => state.page);
@@ -33,7 +33,7 @@ const Main = () => {
         case gamePage:
             return <div><Nav/><Game/></div>;
         case nextLevelPage:
-            return <div><Nav/><Level/></div>;
+            return <div><Nav/><NextLevel/></div>;
         case authorizationPage:
             return <div><Nav/><Authorization/></div>;
         case tutorialPage:

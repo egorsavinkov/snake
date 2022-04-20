@@ -1,8 +1,8 @@
 import React, {useEffect} from 'react';
-import {fb} from "../config/FareBaseConfig";
+import {fb} from "../../config/FareBaseConfig";
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
-import logo from '../images/logo.jpg';
+import logo from '../../images/logo.jpg';
 import {useDispatch, useSelector} from "react-redux";
 import {
     changeGamePointsAction,
@@ -15,14 +15,14 @@ import {
     userAuthorizationActionNickname,
     userAuthorizationActionPassword,
     userAuthorizationActionUid
-} from "../actions/gameActions";
+} from "../../actions/gameActions";
 import {
     authorizationPage, cabinetPage, homePage, pageNavArr
-} from "../utils/Constants";
-import {updateFirebaseWinners} from "../services/updateFirebaseWinners";
-import updateLocalStorage from "../services/updateLocalStorage";
-import {updateFirebasePlayer} from "../services/updateFirebasePlayer";
-import {getAllPlayers} from "../services/getAllPlayers";
+} from "../../utils/Constants";
+import {updateFirebaseWinners} from "../../services/updateFirebaseWinners";
+import updateLocalStorage from "../../services/updateLocalStorage";
+import {updateFirebasePlayer} from "../../services/updateFirebasePlayer";
+import {getAllPlayers} from "../../services/getAllPlayers";
 
 const Nav = () => {
     const dispatch = useDispatch();

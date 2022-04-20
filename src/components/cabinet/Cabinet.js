@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {changePageAction, changeSnakeColorAction} from "../actions/gameActions";
-import {black, blue, bonusCard, homePage, indigo, lemon, levelArr, orange, pink, violet} from "../utils/Constants";
+import {changePageAction, changeSnakeColorAction} from "../../actions/gameActions";
+import {black, blue, bonusCard, homePage, indigo, lemon, levelArr, orange, pink, violet} from "../../utils/Constants";
 import BonusCard from "./BonusCard";
-import updateLocalStorage from "../services/updateLocalStorage";
+import updateLocalStorage from "../../services/updateLocalStorage";
 
 const Cabinet = () => {
     const dispatch = useDispatch();

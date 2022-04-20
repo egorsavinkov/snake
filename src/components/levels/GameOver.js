@@ -1,8 +1,8 @@
 import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {changeLevelPointsAction, changePageAction} from "../actions/gameActions";
-import {gamePage} from "../utils/Constants";
-import updateLocalStorage from "../services/updateLocalStorage";
+import {changeLevelPointsAction, changePageAction} from "../../actions/gameActions";
+import {gamePage} from "../../utils/Constants";
+import updateLocalStorage from "../../services/updateLocalStorage";
 
 const GameOver = () => {
     const levelPoints = useSelector(state => state.levelPoints);

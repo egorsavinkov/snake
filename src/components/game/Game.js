@@ -235,26 +235,29 @@ const Game = () => {
 
     return (
         <div id={`${styleCSS.game}`}>
-            <div className={`${styleCSS.level}`}>
-                <div>
+            <div className={`${styleCSS.block_left}`}>
+                <div className={'showplace_min'}>
                     <img className={'showplace_img'} src={searchImagesLevelShowplace(levelState)} alt={''}/>
-                    {levelPoints < 200 && <h6 className={'showplace_h6'}>Up to the next level {200 - levelPoints} points</h6>}
+                    {levelPoints < 200 &&
+                    <h6 className={'showplace_h6'}>Next level:<br/>{200 - levelPoints} points</h6>}
                     {levelPoints >= 200 && <h6 className={'showplace_h6'}>You have {levelPoints} points per level</h6>}
                 </div>
                 {levelPoints >= 200 &&
-                <button className={`button button_small ${styleCSS.button_next_level}`}
+                <button className={`button button_big ${styleCSS.button_next_level}`}
                         onClick={() => {
                             dispatch(changePageAction(nextLevelPage));
                             dispatch(changeLevelAction(searchNextLevel(levelState)));
                         }}>
                     Next level
-                </button>
-                }
+                </button>}
             </div>
-            <div className={`${levelBackground[levelState]}`}>
+            {/*<div className={`${levelBackground[levelState]}`}>*/}
+            <div className={styleCSS.game_area}>
                 <Snake snakeDots={snakeDots}/>
                 <Point dot={point}/>
                 <Barrier/>
+            </div>
+            <div className={`${styleCSS.block_right}`}>
             </div>
         </div>
     );

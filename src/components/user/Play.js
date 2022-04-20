@@ -1,7 +1,7 @@
 import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {changeLevelAction, changePageAction} from "../actions/gameActions";
-import {gamePage, registrationPage} from "../utils/Constants";
+import {changeLevelAction, changePageAction} from "../../actions/gameActions";
+import {gamePage, registrationPage} from "../../utils/Constants";
 
 const Play = () => {
     const dispatch = useDispatch()

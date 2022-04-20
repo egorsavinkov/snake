@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import 'firebase/compat/firestore';
 import {useSelector} from "react-redux";
-import {updateFirebaseWinners} from "../services/updateFirebaseWinners";
-import {getAllPlayers} from "../services/getAllPlayers";
-import updateLocalStorage from "../services/updateLocalStorage";
-import {updateFirebasePlayer} from "../services/updateFirebasePlayer";
+import {updateFirebaseWinners} from "../../services/updateFirebaseWinners";
+import {getAllPlayers} from "../../services/getAllPlayers";
+import updateLocalStorage from "../../services/updateLocalStorage";
+import {updateFirebasePlayer} from "../../services/updateFirebasePlayer";
 
 const Winners = () => {
     const [state, setState] = useState({gamers: []});
