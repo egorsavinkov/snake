@@ -32,7 +32,7 @@ body {
 }
 
 .level_background {
-    background-image: url('/src/images/b4.jpg');
+    background-image: url('/src/images/b6.jpg');
     background-size: 100%;
     background-position: center bottom;
     width: 100vw;
@@ -41,7 +41,7 @@ body {
 }
 
 .gameOver_background {
-    background-image: url('/src/images/b4.jpg');
+    background-image: url('/src/images/b6.jpg');
     background-size: 100%;
     background-position: center bottom;
     width: 100vw;
